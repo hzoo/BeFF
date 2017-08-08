@@ -1,8 +1,6 @@
-define([
-  './window',
-  './xhr'
-], function(win, xhr) {
-  'use strict';
+import win from './window';
+import xhr from './xhr';
+  
 
   var queue = [],
       api = {},
@@ -185,5 +183,5 @@ define([
     }
   };
 
-  return api;
-});
+  export default api;
+

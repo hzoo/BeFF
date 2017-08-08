@@ -1,12 +1,10 @@
-define([
-  'nbd/util/deparam'
-], function(deparam) {
-  'use strict';
+import deparam from 'nbd/util/deparam';
+  
 
   /**
    * Used for spying purposes within tests
    */
-  return {
+  export default {
     /**
      * Gets the origin of the window (e.g. https://example.com:1234)
      *
@@ -101,4 +99,4 @@ define([
       return deparam(search);
     }
   };
-});
+

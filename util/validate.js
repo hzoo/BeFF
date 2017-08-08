@@ -1,5 +1,5 @@
-define(function() {
-  'use strict';
+
+  
 
   var check,
       test = RegExp.prototype.test,
@@ -274,5 +274,5 @@ define(function() {
 
   validate.tests = tests;
 
-  return validate;
-});
+  export default validate;
+

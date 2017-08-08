@@ -1,7 +1,7 @@
-define(function() {
-  'use strict';
 
-  return {
+  
+
+  export default {
     /**
      * Check if a url's hostname is valid compared to a regex for the service
      *
@@ -30,4 +30,4 @@ define(function() {
       return url;
     }
   };
-});
+

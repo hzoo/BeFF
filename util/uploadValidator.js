@@ -1,9 +1,7 @@
-define([
-  './image'
-], function(image) {
-  'use strict';
+import image from './image';
+  
 
-  return {
+  export default {
     CMYK: function(file) {
       return new Promise(function(resolve, reject) {
         if (file.readerData.isImage && image.isCMYK(image.getBinaryFromDataUri(file.readerData.result))) {
@@ -18,4 +16,4 @@ define([
       return file.readerData.isImage && image.isCMYK(image.getBinaryFromDataUri(file.readerData.result));
     }
   };
-});
+

@@ -1,5 +1,5 @@
-define(['nbd/Promise'], function(Promise) {
-  'use strict';
+import Promise from 'nbd/Promise';
+  
 
   var handlers = [],
       error = function errorHandler(value) {
@@ -14,5 +14,5 @@ define(['nbd/Promise'], function(Promise) {
     value: handlers
   });
 
-  return error;
-});
+  export default error;
+

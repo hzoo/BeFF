@@ -1,12 +1,10 @@
 // Initialize 3rd party social sharing widgets
 /* global FB, twttr, IN, STMBLPN */
-define([
-  'jquery',
-  'tiny-script-loader/loadScriptPromised'
-], function($, loadScriptPromised) {
-  'use strict';
+import $ from 'jquery';
+import loadScriptPromised from 'tiny-script-loader/loadScriptPromised';
+  
 
-  return {
+  export default {
     init: function($context) {
       this.twitter($context);
       this.facebook($context);
@@ -76,4 +74,4 @@ define([
       }
     }
   };
-});
+

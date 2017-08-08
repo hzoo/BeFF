@@ -1,11 +1,9 @@
 /**
  * Module wrapper around usage of the CSRF token stored in the cookie store
  */
-define([
-  './cookie',
-  'uuid/v4'
-], function(cookie, uuidV4) {
-  'use strict';
+import cookie from './cookie';
+import uuidV4 from 'uuid/v4';
+  
 
   /**
    * Sets the CSRF cookie to a random value. Calling multiple times will
@@ -36,8 +34,8 @@ define([
     return cookie.get('bcp') || genCookie();
   }
 
-  return {
+  export default {
     get: getCookie,
     expire: expireCookie
   };
-});
+

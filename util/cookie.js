@@ -1,5 +1,5 @@
-define([], function() {
-  'use strict';
+
+  
 
   /**
    * Calculates cookie expiration value
@@ -22,7 +22,7 @@ define([], function() {
     return '';
   }
 
-  return {
+  export default {
     /**
      * Gets cookie with given name
      * @param {String} name
@@ -72,4 +72,4 @@ define([], function() {
       document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
     }
   };
-});
+

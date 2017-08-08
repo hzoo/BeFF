@@ -1,5 +1,7 @@
-define(['jquery', 'nbd/Promise', './csrfCookie'], function($, Promise, csrfCookie) {
-  'use strict';
+import $ from 'jquery';
+import Promise from 'nbd/Promise';
+import csrfCookie from './csrfCookie';
+  
 
   function addCsrfToken(options) {
     var addCsrf = function(req) {
@@ -25,7 +27,7 @@ define(['jquery', 'nbd/Promise', './csrfCookie'], function($, Promise, csrfCooki
   * Returns a promise wrapping jQuery.ajax()
   * This is so we can get proper error reporting
   */
-  return function xhr(options) {
+  export default function xhr(options) {
     var thenable,
         p = new Promise(),
         req;
@@ -45,4 +47,4 @@ define(['jquery', 'nbd/Promise', './csrfCookie'], function($, Promise, csrfCooki
     thenable.abort = req.abort;
     return thenable;
   };
-});
+
