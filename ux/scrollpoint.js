@@ -1,7 +1,5 @@
-define([
-  'jquery'
-], function($) {
-  'use strict';
+import $ from 'jquery';
+  
 
   /**
    * Events for scrolling past points in pages
@@ -137,5 +135,5 @@ define([
   scrollpoint.on = scrollpoint;
   scrollpoint.off = unregister;
 
-  return scrollpoint;
-});
+  export default scrollpoint;
+

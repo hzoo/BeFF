@@ -1,8 +1,6 @@
 // Events for scrolling past floating regions
-define([
-  'jquery'
-], function($) {
-  'use strict';
+import $ from 'jquery';
+  
 
   var $window = $(window),
       $document = $(document),
@@ -170,5 +168,5 @@ define([
     scrollCache[contextId]();
   };
 
-  return scrollfloat;
-});
+  export default scrollfloat;
+

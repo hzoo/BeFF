@@ -1,11 +1,9 @@
-define([
-  'jquery',
-  'nbd/util/async',
-  'nbd/util/extend',
-  '../Dialog',
-  'jqueryui/position'
-], function($, async, extend, View) {
-  'use strict';
+import $ from 'jquery';
+import async from 'nbd/util/async';
+import extend from 'nbd/util/extend';
+import View from '../Dialog';
+import 'jqueryui/position';
+  
 
   var constructor = View.extend({
     init: function() {
@@ -57,5 +55,5 @@ define([
     }
   });
 
-  return constructor;
-});
+  export default constructor;
+

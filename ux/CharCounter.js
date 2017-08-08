@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  '../Component'
-], function($, Component) {
-  'use strict';
+import $ from 'jquery';
+import Component from '../Component';
+  
 
   var CountableElement = Component.extend({
     init: function(options) {
@@ -89,7 +87,7 @@ define([
     }
   });
 
-  return Component.extend({
+  export default Component.extend({
     /**
      * @param {Object} options
      * @param {$} options.$context
@@ -115,4 +113,4 @@ define([
       });
     }
   });
-});
+

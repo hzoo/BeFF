@@ -1,5 +1,6 @@
-define(['jquery', 'nbd/Class'], function($, Class) {
-  'use strict';
+import $ from 'jquery';
+import Class from 'nbd/Class';
+  
 
   function checkMeta(metas, fn) {
     return function(e) {
@@ -205,10 +206,10 @@ define(['jquery', 'nbd/Class'], function($, Class) {
     }
   }))();
 
-  return {
+  export default {
     on: keyhandler.addListener,
     off: keyhandler.removeListener,
     add: keyhandler.appendListener,
     global: keyhandler.addGlobal
   };
-});
+

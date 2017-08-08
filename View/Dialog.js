@@ -1,12 +1,10 @@
-define([
-  'nbd/util/async',
-  'nbd/util/extend',
-  '../View',
-  '../ux/keyboard',
-  '../dom/transitionEnd',
-  'hgn-loader!../template/dialog'
-], function(async, extend, View, keyboard, transitionEnd, dialogTemplate) {
-  'use strict';
+import async from 'nbd/util/async';
+import extend from 'nbd/util/extend';
+import View from '../View';
+import keyboard from '../ux/keyboard';
+import transitionEnd from '../dom/transitionEnd';
+import dialogTemplate from 'hgn-loader!../template/dialog';
+  
 
   var constructor = View.extend({
     init: function(model) {
@@ -90,5 +88,5 @@ define([
     }
   });
 
-  return constructor;
-});
+  export default constructor;
+

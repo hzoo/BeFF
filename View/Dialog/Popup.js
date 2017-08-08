@@ -1,10 +1,8 @@
-define([
-  'jquery',
-  'nbd/util/extend',
-  '../Dialog',
-  'jqueryui/position'
-], function($, extend, View) {
-  'use strict';
+import $ from 'jquery';
+import extend from 'nbd/util/extend';
+import View from '../Dialog';
+import 'jqueryui/position';
+  
 
   var constructor = View.extend({
     _selector: '.popup',
@@ -74,5 +72,5 @@ define([
     Z_INDEX: 250
   });
 
-  return constructor;
-});
+  export default constructor;
+
