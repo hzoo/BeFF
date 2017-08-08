@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  '../Controller'
-], function($, Controller) {
-  'use strict';
+import $ from 'jquery';
+import Controller from '../Controller';
+  
 
   var constructor = Controller.extend({
     setContext: function($context) {
@@ -36,5 +34,5 @@ define([
     }
   });
 
-  return constructor;
-});
+  export default constructor;
+

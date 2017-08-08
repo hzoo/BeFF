@@ -1,10 +1,8 @@
-define([
-  'nbd/trait/promise',
-  '../Dialog',
-  '../../View/Dialog/Popup',
-  'nbd/util/throttle'
-], function(promise, Dialog, Popup, throttle) {
-  'use strict';
+import promise from 'nbd/trait/promise';
+import Dialog from '../Dialog';
+import Popup from '../../View/Dialog/Popup';
+import throttle from 'nbd/util/throttle';
+  
 
   var Modal = Dialog.extend({
     switchView: function() {
@@ -65,5 +63,5 @@ define([
   })
   .mixin(promise);
 
-  return Modal;
-});
+  export default Modal;
+
