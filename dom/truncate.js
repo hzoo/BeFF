@@ -1,5 +1,5 @@
 
-  
+
 
   /**
    * Returns a new Range object if the environment supports

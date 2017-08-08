@@ -1,5 +1,5 @@
 
-  
+
 
   var check,
       test = RegExp.prototype.test,

@@ -1,5 +1,5 @@
 
-  
+
 
   export default function(services, url, service) {
     url = url.trim();

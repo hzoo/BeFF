@@ -1,50 +1,50 @@
 import $ from 'jquery';
 import Component from '../Component';
 import 'intersection-observer-polyfill';
-  
 
-  export default Component.extend({
-    init: function($elem) {
-      this._$elem = $elem;
-    },
 
-    bind: function() {
-      this.createObserver();
-    },
+export default Component.extend({
+  init: function($elem) {
+    this._$elem = $elem;
+  },
 
-    createObserver: function() {
-      this._observer = new window.IntersectionObserver(this.changeHandler.bind(this));
-      var self = this;
+  bind: function() {
+    this.createObserver();
+  },
 
-      this._$elem.each(function() {
-        self._observer.observe(this);
-      });
-    },
+  createObserver: function() {
+    this._observer = new window.IntersectionObserver(this.changeHandler.bind(this));
+    var self = this;
 
-    changeHandler: function(changes) {
-      var self = this;
+    this._$elem.each(function() {
+      self._observer.observe(this);
+    });
+  },
 
-      changes.forEach(function(change) {
-        var $img = $(change.target);
+  changeHandler: function(changes) {
+    var self = this;
 
-        self._replaceAttr($img, 'srcset');
-        self._replaceAttr($img, 'src');
+    changes.forEach(function(change) {
+      var $img = $(change.target);
 
-        self.trigger('load', $img);
+      self._replaceAttr($img, 'srcset');
+      self._replaceAttr($img, 'src');
 
-        self._observer.unobserve(change.target);
-      });
-    },
+      self.trigger('load', $img);
 
-    _replaceAttr: function($img, attrToReplace) {
-      if ($img.attr('data-' + attrToReplace)) {
-        $img.attr(attrToReplace, $img.data(attrToReplace))
+      self._observer.unobserve(change.target);
+    });
+  },
+
+  _replaceAttr: function($img, attrToReplace) {
+    if ($img.attr('data-' + attrToReplace)) {
+      $img.attr(attrToReplace, $img.data(attrToReplace))
         .removeAttr('data-' + attrToReplace);
-      }
-    },
-
-    unbind: function() {
-      this._observer.disconnect();
     }
-  });
+  },
+
+  unbind: function() {
+    this._observer.disconnect();
+  }
+});
 

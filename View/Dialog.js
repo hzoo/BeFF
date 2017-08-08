@@ -4,25 +4,25 @@ import View from '../View';
 import keyboard from '../ux/keyboard';
 import transitionEnd from '../dom/transitionEnd';
 import dialogTemplate from 'hgn-loader!../template/dialog';
-  
 
-  var constructor = View.extend({
-    init: function(model) {
-      this._super(model);
-      this
+
+var constructor = View.extend({
+  init: function(model) {
+    this._super(model);
+    this
       .on('postrender', this._bindButtons)
       .on('postrender', function() {
         async(this.position.bind(this));
       });
-    },
+  },
 
-    destroy: function() {
-      this.hide();
-      this._super.apply(this, arguments);
-    },
+  destroy: function() {
+    this.hide();
+    this._super.apply(this, arguments);
+  },
 
-    _bindButtons: function($view) {
-      $view
+  _bindButtons: function($view) {
+    $view
       .on('click', '.js-confirm', this.trigger.bind(this, 'confirm'))
       .on('click', '.js-close', this.hide.bind(this))
       .on('click', '.js-disabled', false)
@@ -30,63 +30,63 @@ import dialogTemplate from 'hgn-loader!../template/dialog';
       .on('click touchend', function(e) {
         e.originalEvent._view = this;
       }.bind(this));
-    },
+  },
 
-    dialogTemplate: dialogTemplate,
+  dialogTemplate: dialogTemplate,
 
-    template: function(data) {
-      return this.dialogTemplate(extend({
-        content: this._super(data)
-      }, this.dialogData, data));
-    },
+  template: function(data) {
+    return this.dialogTemplate(extend({
+      content: this._super(data)
+    }, this.dialogData, data));
+  },
 
-    position: function() {},
+  position: function() {},
 
-    _transitionEnd: function() {
-      return transitionEnd(this.$view);
-    },
+  _transitionEnd: function() {
+    return transitionEnd(this.$view);
+  },
 
-    _shown: false,
-    _shownClass: 'shown',
+  _shown: false,
+  _shownClass: 'shown',
 
-    show: function() {
-      if (this._shown) { return this; }
-      this._shown = true;
+  show: function() {
+    if (this._shown) { return this; }
+    this._shown = true;
 
-      var $view = this.$view;
-      $view.show();
-      async(function() {
-        $view.toggleClass(this._shownClass, this._shown);
-        this.trigger('visible', $view);
-      }.bind(this));
+    var $view = this.$view;
+    $view.show();
+    async(function() {
+      $view.toggleClass(this._shownClass, this._shown);
+      this.trigger('visible', $view);
+    }.bind(this));
 
-      keyboard.on({
-        escape: this.hide.bind(this)
-      });
-      return this.trigger('show', $view);
-    },
+    keyboard.on({
+      escape: this.hide.bind(this)
+    });
+    return this.trigger('show', $view);
+  },
 
-    hide: function() {
-      if (!this._shown) { return this; }
-      this._shown = false;
+  hide: function() {
+    if (!this._shown) { return this; }
+    this._shown = false;
 
-      this._hiding = this._transitionEnd().then(function() {
-        if (this.$view) {
-          this.$view.hide();
-        }
-        this.trigger('hidden', this.$view);
-      }.bind(this));
+    this._hiding = this._transitionEnd().then(function() {
+      if (this.$view) {
+        this.$view.hide();
+      }
+      this.trigger('hidden', this.$view);
+    }.bind(this));
 
-      this.$view.toggleClass(this._shownClass, this._shown);
+    this.$view.toggleClass(this._shownClass, this._shown);
 
-      keyboard.off();
-      return this.trigger('hide', this.$view);
-    },
+    keyboard.off();
+    return this.trigger('hide', this.$view);
+  },
 
-    toggle: function() {
-      return this[this._shown ? 'hide' : 'show']();
-    }
-  });
+  toggle: function() {
+    return this[this._shown ? 'hide' : 'show']();
+  }
+});
 
-  export default constructor;
+export default constructor;
 

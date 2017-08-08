@@ -1,7 +1,7 @@
 {
   "extends": "./node_modules/eslint-preset-behance/.eslintrc",
   "parserOptions": {
-    "sourceType": "script"
+    "sourceType": "module"
   },
   "env": {
     "browser": true
