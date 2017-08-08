@@ -1,12 +1,10 @@
-define([
-  'jquery',
-  'nbd/View',
-  'nbd/trait/log',
-  './trait/eventMappable'
-], function($, View, log, eventMappable) {
-  'use strict';
+import $ from 'jquery';
+import View from 'nbd/View';
+import log from 'nbd/trait/log';
+import eventMappable from './trait/eventMappable';
+  
 
-  return View.extend({
+  export default View.extend({
     init: function() {
       this._super.apply(this, arguments);
       this.on('postrender', this._mapEvents);
@@ -25,4 +23,4 @@ define([
   })
   .mixin(log)
   .mixin(eventMappable);
-});
+

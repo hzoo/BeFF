@@ -1,12 +1,10 @@
-define([
-  'nbd/Class',
-  'nbd/util/construct',
-  'nbd/trait/log',
-  'nbd/trait/pubsub'
-], function(Class, construct, log, pubsub) {
-  'use strict';
+import Class from 'nbd/Class';
+import construct from 'nbd/util/construct';
+import log from 'nbd/trait/log';
+import pubsub from 'nbd/trait/pubsub';
+  
 
-  return Class.extend({
+  export default Class.extend({
     bind: function() { return this; },
     unbind: function() { return this; },
     destroy: function() {
@@ -25,4 +23,4 @@ define([
   })
   .mixin(log)
   .mixin(pubsub);
-});
+

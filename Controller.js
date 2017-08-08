@@ -1,18 +1,16 @@
-define([
-  'jquery',
-  'nbd/util/extend',
-  'nbd/trait/log',
-  'nbd/trait/responsive',
-  'nbd/Controller',
-  './View'
-], function($, extend, log, responsive, Controller, View) {
-  'use strict';
+import $ from 'jquery';
+import extend from 'nbd/util/extend';
+import log from 'nbd/trait/log';
+import responsive from 'nbd/trait/responsive';
+import Controller from 'nbd/Controller';
+import View from './View';
+  
 
   function isData(id, data) {
     return typeof data === 'undefined' || typeof id === 'object';
   }
 
-  return Controller.extend({
+  export default Controller.extend({
     init: function(id, data) {
       var el, $view;
 
@@ -53,4 +51,4 @@ define([
   })
   .mixin(log)
   .mixin(responsive);
-});
+
