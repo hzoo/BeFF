@@ -1,7 +1,5 @@
-define([
-  '../Component'
-], function(Component) {
-  'use strict';
+import Component from '../Component';
+  
 
   /**
    * A wrapper around HTML5 FileReader that provides additional information about the read image.
@@ -9,7 +7,7 @@ define([
    * @module  dom/FileReader
    * @constructor
    */
-  return Component.extend({
+  export default Component.extend({
     init: function() {
       this.reader = new FileReader();
     },
@@ -69,4 +67,4 @@ define([
       return self.load(file);
     }
   });
-});
+

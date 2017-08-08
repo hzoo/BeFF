@@ -1,9 +1,7 @@
-define([
-  'nbd/Promise',
-  '../Component',
-  '../util/image'
-], function(Promise, Component, imageUtil) {
-  'use strict';
+import Promise from 'nbd/Promise';
+import Component from '../Component';
+import imageUtil from '../util/image';
+  
 
   /**
    * Represents a wrapper of window.Image
@@ -20,7 +18,7 @@ define([
    *   .on('error', function() {})
    *   .src(Blob|File);
    */
-  return Component.extend({
+  export default Component.extend({
     /**
      * @type {HTMLImageElement}
      */
@@ -200,4 +198,4 @@ define([
       });
     }
   });
-});
+

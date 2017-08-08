@@ -1,5 +1,5 @@
-define(['jquery'], function($) {
-  'use strict';
+import $ from 'jquery';
+  
 
   function makeCheckbox($el) {
     var $checkbox = $('<input>', {
@@ -13,7 +13,7 @@ define(['jquery'], function($) {
     return $checkbox;
   }
 
-  return {
+  export default {
     /**
      * Creates checkboxes out of arbitrary elements
      * Toggles the active class on the element,
@@ -29,4 +29,4 @@ define(['jquery'], function($) {
       });
     }
   };
-});
+

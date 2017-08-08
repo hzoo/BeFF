@@ -1,9 +1,7 @@
-define([
-  'nbd/Model'
-], function(Model) {
-  'use strict';
+import Model from 'nbd/Model';
+  
 
-  return Model.extend({
+  export default Model.extend({
     /**
      * @param  {String} id - keypath/subtree the model maintains
      * @param  {ractive} ractive - the instance managing the parent tree
@@ -144,4 +142,4 @@ define([
      */
     set _data(data) { return data; }
   });
-});
+

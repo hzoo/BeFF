@@ -1,8 +1,6 @@
-define([
-  'nbd/Promise',
-  'nbd/util/diff'
-], function(Promise, diff) {
-  'use strict';
+import Promise from 'nbd/Promise';
+import diff from 'nbd/util/diff';
+  
 
   // Thanks modernizr
   var eventName = (function transitionEvent() {
@@ -132,7 +130,7 @@ define([
     }, {});
   }
 
-  return function transitionEnd($el, timeout) {
+  export default function transitionEnd($el, timeout) {
     var p = new Promise(), props, halt = false;
 
     timeout = timeout || 300;
@@ -166,4 +164,4 @@ define([
     }
     return p;
   };
-});
+

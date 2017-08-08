@@ -1,5 +1,5 @@
-define(['jquery'], function($) {
-  'use strict';
+import $ from 'jquery';
+  
 
   var mm = window.matchMedia || window.msMatchMedia,
       mkimg = function() {
@@ -30,7 +30,7 @@ define(['jquery'], function($) {
         }).appendTo($this);
       };
 
-  return function picturefill($context) {
+  export default function picturefill($context) {
     return $('div[data-picture]:not([data-rendered])', $context).each(mkimg);
   };
-});
+

@@ -1,5 +1,5 @@
-define(['jquery'], function($) {
-  'use strict';
+import $ from 'jquery';
+  
 
   var _attachTextLike = function(selector, key, $field) {
     var model;
@@ -18,7 +18,7 @@ define(['jquery'], function($) {
   };
 
   // Two-way binding of inputs to a model
-  return {
+  export default {
     attach: function($els) {
       var map = {
         'input[type=text]': 'attachText',
@@ -137,4 +137,4 @@ define(['jquery'], function($) {
       $($el).prop('checked', checked);
     }
   };
-});
+

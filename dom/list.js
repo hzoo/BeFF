@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  'nbd/util/curry'
-], function($, curry) {
-  'use strict';
+import $ from 'jquery';
+import curry from 'nbd/util/curry';
+  
 
   // Make a select from a ul/ol
   function makeSelect($ul, multiple) {
@@ -47,8 +45,8 @@ define([
     });
   }
 
-  return {
+  export default {
     selectList: curry.call(bindList, false),
     multiList: curry.call(bindList, true)
   };
-});
+
