@@ -1,11 +1,9 @@
-define([
-  'jquery',
-  '../Component',
-  'tiny-script-loader/loadScriptPromised'
-], function($, Component, loadScriptPromised) {
-  'use strict';
+import $ from 'jquery';
+import Component from '../Component';
+import loadScriptPromised from 'tiny-script-loader/loadScriptPromised';
+  
 
-  return Component.extend({
+  export default Component.extend({
     init: function(config) {
       this._config = config;
       this._export();
@@ -59,4 +57,4 @@ define([
       }.bind(this));
     }
   });
-});
+

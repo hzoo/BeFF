@@ -1,12 +1,10 @@
-define([
-  'nbd/Promise',
-  'nbd/util/extend',
-  'nbd/util/pipe',
-  '../Component',
-  '../util/xhr',
-  '../util/error'
-], function(Promise, extend, pipe, Component, xhr, error) {
-  'use strict';
+import Promise from 'nbd/Promise';
+import extend from 'nbd/util/extend';
+import pipe from 'nbd/util/pipe';
+import Component from '../Component';
+import xhr from '../util/xhr';
+import error from '../util/error';
+  
 
   /**
    * Takes a serialized Array (such as from $.serializeArray) and
@@ -264,5 +262,5 @@ define([
     }
   });
 
-  return Form;
-});
+  export default Form;
+

@@ -1,14 +1,12 @@
-define([
-  'nbd/trait/pubsub',
-  'nbd/util/construct',
-  'nbd/util/extend',
-  '../Component',
-  '../ux/scrollfloat',
-  '../util/xhr'
-], function(pubsub, construct, extend, Component, scrollfloat, xhr) {
-  'use strict';
+import pubsub from 'nbd/trait/pubsub';
+import construct from 'nbd/util/construct';
+import extend from 'nbd/util/extend';
+import Component from '../Component';
+import scrollfloat from '../ux/scrollfloat';
+import xhr from '../util/xhr';
+  
 
-  return Component.extend({
+  export default Component.extend({
     init: function(context, offset, contentContext) {
       this.context = context || 'window';
       this.contentContext = contentContext;
@@ -136,4 +134,4 @@ define([
     }
   })
   .mixin(pubsub);
-});
+

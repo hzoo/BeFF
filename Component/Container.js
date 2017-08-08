@@ -1,11 +1,9 @@
-define([
-  'jquery',
-  'nbd/util/construct',
-  '../Component',
-  '../Controller',
-  '../trait/eventMappable'
-], function($, construct, Component, Controller, eventMappable) {
-  'use strict';
+import $ from 'jquery';
+import construct from 'nbd/util/construct';
+import Component from '../Component';
+import Controller from '../Controller';
+import eventMappable from '../trait/eventMappable';
+  
 
   /**
    * Manages a DOM region that contains a list of Controllers for each item.
@@ -15,7 +13,7 @@ define([
    * @extends BeFF/Component
    * @module  BeFF/Component/Container
    */
-  return Component.extend({
+  export default Component.extend({
     /**
      * The controller class constructed for each item in the container
      * Defaults to the base BeFF/Controller unless overridden
@@ -155,4 +153,4 @@ define([
     }
   })
   .mixin(eventMappable);
-});
+

@@ -1,11 +1,9 @@
-define([
-  'jquery',
-  '../Component',
-  'intersection-observer-polyfill'
-], function($, Component) {
-  'use strict';
+import $ from 'jquery';
+import Component from '../Component';
+import 'intersection-observer-polyfill';
+  
 
-  return Component.extend({
+  export default Component.extend({
     init: function($elem) {
       this._$elem = $elem;
     },
@@ -49,4 +47,4 @@ define([
       this._observer.disconnect();
     }
   });
-});
+

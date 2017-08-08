@@ -1,14 +1,12 @@
-define([
-  'jquery',
-  'nbd/Promise',
-  'nbd/trait/pubsub',
-  'nbd/util/extend',
-  '../Component',
-  './CloudUploader/facades/promise',
-  './CloudUploader/facades/promises',
-  'fineuploader/all.fine-uploader'
-], function($, Promise, pubsub, extend, Component, promiseFacade, promisesFacade, fineUploader) {
-  'use strict';
+import $ from 'jquery';
+import Promise from 'nbd/Promise';
+import pubsub from 'nbd/trait/pubsub';
+import extend from 'nbd/util/extend';
+import Component from '../Component';
+import promiseFacade from './CloudUploader/facades/promise';
+import promisesFacade from './CloudUploader/facades/promises';
+import fineUploader from 'fineuploader/all.fine-uploader';
+  
 
   /**
    * Wrapper around FineUploader that provides sane defaults,
@@ -29,7 +27,7 @@ define([
    * @fires module:Component/CloudUploader#submit
    * @fires module:Component/CloudUploader#progress
    */
-  return Component.extend({
+  export default Component.extend({
     /**
      * Uploader configuration defaults
      * @type {Object}
@@ -408,4 +406,4 @@ define([
       });
     }
   });
-});
+

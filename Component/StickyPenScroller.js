@@ -1,10 +1,8 @@
-define([
-  'jquery',
-  '../Component'
-], function($, Component) {
-  'use strict';
+import $ from 'jquery';
+import Component from '../Component';
+  
 
-  return Component.extend({
+  export default Component.extend({
     init: function(options) {
       options = options || {};
       this.penMargin = options.penMargin || 15;
@@ -120,4 +118,4 @@ define([
       $(window).off('.stickyPenScroller');
     }
   });
-});
+

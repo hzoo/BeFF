@@ -1,9 +1,7 @@
-define([
-  'jquery',
-  '../Component',
-  'jquery-lazyload'
-], function($, Component) {
-  'use strict';
+import $ from 'jquery';
+import Component from '../Component';
+import 'jquery-lazyload';
+  
 
   function swapAttr($elem, attr) {
     var property = 'data-' + attr;
@@ -15,7 +13,7 @@ define([
     }
   }
 
-  return Component.extend({
+  export default Component.extend({
     init: function($elem, options) {
       this._$elem = $elem;
       this._options = options;
@@ -60,4 +58,4 @@ define([
       this._$elem.off('appear');
     }
   });
-});
+

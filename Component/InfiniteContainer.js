@@ -1,13 +1,11 @@
-define([
-  'nbd/util/async',
-  'nbd/util/construct',
-  'nbd/util/extend',
-  './InfiniteLoader',
-  './Container'
-], function(async, construct, extend, InfiniteLoader, Container) {
-  'use strict';
+import async from 'nbd/util/async';
+import construct from 'nbd/util/construct';
+import extend from 'nbd/util/extend';
+import InfiniteLoader from './InfiniteLoader';
+import Container from './Container';
+  
 
-  return InfiniteLoader.extend({
+  export default InfiniteLoader.extend({
     dataKey: 'data',
     offsetKey: 'offset',
 
@@ -125,4 +123,4 @@ define([
       return this._container && this._container.isEmpty();
     }
   });
-});
+

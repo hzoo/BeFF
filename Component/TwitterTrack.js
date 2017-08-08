@@ -1,10 +1,8 @@
-define([
-  '../Component',
-  'tiny-script-loader/loadScriptPromised'
-], function(Component, loadScriptPromised) {
-  'use strict';
+import Component from '../Component';
+import loadScriptPromised from 'tiny-script-loader/loadScriptPromised';
+  
 
-  return Component.extend({
+  export default Component.extend({
     init: function(pixelId) {
       this._pixelId = pixelId;
     },
@@ -52,4 +50,4 @@ define([
       window.twq.queue = [];
     }
   });
-});
+
