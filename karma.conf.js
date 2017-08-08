@@ -9,7 +9,8 @@ if (process.env.COVERAGE === 'true') {
     test: /\.js$/,
     exclude: /(test|node_modules)\//,
     loader: 'istanbul-instrumenter-loader',
-    enforce: 'post'
+    enforce: 'post',
+    options: { esModules: true }
   });
   reporters.push('coverage');
 }

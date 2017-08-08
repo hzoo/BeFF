@@ -1,4 +1,4 @@
-define({
+export default {
   success: {
     status: 200,
     responseText: JSON.stringify({
@@ -19,4 +19,4 @@ define({
       data: []
     })
   }
-});
+};
