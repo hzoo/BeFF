@@ -1,5 +1,5 @@
-define(['util/csrfCookie'], function(csrfCookie) {
-  'use strict';
+import csrfCookie from 'util/csrfCookie';
+  
 
   describe('util/csrfCookie', function() {
     beforeEach(function() {
@@ -41,4 +41,4 @@ define(['util/csrfCookie'], function(csrfCookie) {
       });
     });
   });
-});
+

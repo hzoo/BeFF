@@ -1,8 +1,6 @@
-define([
-  'ractive',
-  'ractive/Model'
-], function(Ractive, RactiveModel) {
-  'use strict';
+import Ractive from 'ractive';
+import RactiveModel from 'ractive/Model';
+  
 
   describe('lib/RactiveModel', function() {
     var data;
@@ -134,4 +132,4 @@ define([
       });
     });
   });
-});
+

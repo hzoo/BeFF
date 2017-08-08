@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  'Component/Form/validators'
-], function($, formValidators) {
-  'use strict';
+import $ from 'jquery';
+import formValidators from 'Component/Form/validators';
+  
 
   describe('util/formValidators', function() {
     beforeEach(function() {
@@ -45,4 +43,4 @@ define([
       });
     });
   });
-});
+

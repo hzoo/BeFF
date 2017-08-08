@@ -1,8 +1,6 @@
-define([
-  'util/image',
-  'fixtures/dom/Image/fileReaderData'
-], function(image, Images) {
-  'use strict';
+import image from 'util/image';
+import Images from 'fixtures/dom/Image/fileReaderData';
+  
 
   describe('util/image', function() {
     describe('#isCMYK', function() {
@@ -44,4 +42,4 @@ define([
       });
     });
   });
-});
+

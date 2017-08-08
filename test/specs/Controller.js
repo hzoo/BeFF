@@ -1,5 +1,7 @@
-define(['Controller', 'View', 'jquery'], function(Controller, View, $) {
-  'use strict';
+import Controller from 'Controller';
+import View from 'View';
+import $ from 'jquery';
+  
 
   describe('Controller', function() {
     var instance;
@@ -116,4 +118,4 @@ define(['Controller', 'View', 'jquery'], function(Controller, View, $) {
       expect(spy).toHaveBeenCalledWith(instance._view.$view);
     });
   });
-});
+

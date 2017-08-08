@@ -1,7 +1,5 @@
-define([
-  'Component/TwitterTrack'
-], function(TwitterTrack) {
-  'use strict';
+import TwitterTrack from 'Component/TwitterTrack';
+  
 
   describe('Component/TwitterTrack', function() {
     beforeEach(function() {
@@ -53,4 +51,4 @@ define([
       });
     });
   });
-});
+

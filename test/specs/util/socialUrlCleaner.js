@@ -1,5 +1,5 @@
-define(['util/socialUrlCleaner'], function(socialUrl) {
-  'use strict';
+import socialUrl from 'util/socialUrlCleaner';
+  
 
   describe('util/socialUrlCleaner', function() {
     beforeEach(function() {
@@ -114,4 +114,4 @@ define(['util/socialUrlCleaner'], function(socialUrl) {
       });
     });
   });
-});
+

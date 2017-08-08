@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  'Component/zenDesk'
-], function($, ZenDesk) {
-  'use strict';
+import $ from 'jquery';
+import ZenDesk from 'Component/zenDesk';
+  
 
   describe('Component/zenDesk', function() {
     beforeEach(function() {
@@ -53,4 +51,4 @@ define([
       });
     });
   });
-});
+

@@ -1,12 +1,10 @@
-define([
-  'jquery',
-  'nbd/util/async',
-  'nbd/Promise',
-  'fineuploader/all.fine-uploader',
-  'mocks/fineuploader',
-  'Component/CloudUploader'
-], function($, async, Promise, fineUploader, fineUploaderMock, CloudUploader) {
-  'use strict';
+import $ from 'jquery';
+import async from 'nbd/util/async';
+import Promise from 'nbd/Promise';
+import fineUploader from 'fineuploader/all.fine-uploader';
+import fineUploaderMock from 'mocks/fineuploader';
+import CloudUploader from 'Component/CloudUploader';
+  
 
   describe('Component/CloudUploader', function() {
     var Uploader, fineuploaderMock;
@@ -382,4 +380,4 @@ define([
       });
     });
   });
-});
+

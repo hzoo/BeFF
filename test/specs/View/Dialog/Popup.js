@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  'View/Dialog/Popup'
-], function($, Popup) {
-  'use strict';
+import $ from 'jquery';
+import Popup from 'View/Dialog/Popup';
+  
 
   describe('View/Dialog/Popup', function() {
     beforeEach(function() {
@@ -62,4 +60,4 @@ define([
       });
     });
   });
-});
+

@@ -1,8 +1,6 @@
-define([
-  'trait/attachDom',
-  'nbd/Model'
-], function(attachDom, Model) {
-  'use strict';
+import attachDom from 'trait/attachDom';
+import Model from 'nbd/Model';
+  
 
   describe('trait/attachDom', function() {
     function attachDomModel() {
@@ -256,4 +254,4 @@ define([
       });
     });
   });
-});
+

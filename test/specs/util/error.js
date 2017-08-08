@@ -1,5 +1,6 @@
-define(['util/error', 'nbd/Promise'], function(error, Promise) {
-  'use strict';
+import error from 'util/error';
+import Promise from 'nbd/Promise';
+  
 
   describe('util/error', function() {
     describe('.handlers', function() {
@@ -65,4 +66,4 @@ define(['util/error', 'nbd/Promise'], function(error, Promise) {
       p.reject('foo');
     });
   });
-});
+

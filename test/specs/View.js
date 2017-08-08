@@ -1,5 +1,7 @@
-define(['View', 'trait/eventMappable', 'jquery'], function(View, eventMappable, $) {
-  'use strict';
+import View from 'View';
+import eventMappable from 'trait/eventMappable';
+import $ from 'jquery';
+  
 
   describe('View', function() {
     it('is eventMappable', function() {
@@ -55,4 +57,4 @@ define(['View', 'trait/eventMappable', 'jquery'], function(View, eventMappable, 
       });
     });
   });
-});
+

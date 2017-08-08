@@ -1,5 +1,7 @@
-define(['util/xhr', 'nbd/Promise', 'util/csrfCookie'], function(xhr, Promise, csrfCookie) {
-  'use strict';
+import xhr from 'util/xhr';
+import Promise from 'nbd/Promise';
+import csrfCookie from 'util/csrfCookie';
+  
 
   describe('util/xhr', function() {
     var meta = {
@@ -129,4 +131,4 @@ define(['util/xhr', 'nbd/Promise', 'util/csrfCookie'], function(xhr, Promise, cs
       });
     });
   });
-});
+

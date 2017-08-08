@@ -1,9 +1,7 @@
-define([
-  'jquery',
-  'Component/InfiniteLoader',
-  'fixtures/responses/loader'
-], function($, InfiniteLoader, RESPONSES) {
-  'use strict';
+import $ from 'jquery';
+import InfiniteLoader from 'Component/InfiniteLoader';
+import RESPONSES from 'fixtures/responses/loader';
+  
 
   describe('Component/InfiniteLoader', function() {
     var loader,
@@ -367,4 +365,4 @@ define([
       });
     });
   });
-});
+

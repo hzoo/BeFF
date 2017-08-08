@@ -1,10 +1,8 @@
-define([
-  'jquery',
-  'nbd/Promise',
-  '../../dom/FileReader',
-  'fixtures/dom/FileReader'
-], function($, Promise, FileReader, image) {
-  'use strict';
+import $ from 'jquery';
+import Promise from 'nbd/Promise';
+import FileReader from '../../dom/FileReader';
+import image from 'fixtures/dom/FileReader';
+  
 
   function FineUploaderBasic(options) {
     this._options = options;
@@ -177,9 +175,9 @@ define([
     }
   };
 
-  return {
+  export default {
     s3: {
       FineUploaderBasic: FineUploaderBasic
     }
   };
-});
+
