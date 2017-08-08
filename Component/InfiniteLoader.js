@@ -1,5 +1,4 @@
 import pubsub from 'nbd/trait/pubsub';
-import construct from 'nbd/util/construct';
 import extend from 'nbd/util/extend';
 import Component from '../Component';
 import scrollfloat from '../ux/scrollfloat';

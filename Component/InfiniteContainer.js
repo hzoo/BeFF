@@ -1,5 +1,4 @@
 import async from 'nbd/util/async';
-import construct from 'nbd/util/construct';
 import extend from 'nbd/util/extend';
 import InfiniteLoader from './InfiniteLoader';
 import Container from './Container';

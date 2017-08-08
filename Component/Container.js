@@ -1,5 +1,3 @@
-import $ from 'jquery';
-import construct from 'nbd/util/construct';
 import Component from '../Component';
 import Controller from '../Controller';
 import eventMappable from '../trait/eventMappable';

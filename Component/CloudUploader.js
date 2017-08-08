@@ -1,7 +1,5 @@
 import $ from 'jquery';
 import Promise from 'nbd/Promise';
-import pubsub from 'nbd/trait/pubsub';
-import extend from 'nbd/util/extend';
 import Component from '../Component';
 import promiseFacade from './CloudUploader/facades/promise';
 import promisesFacade from './CloudUploader/facades/promises';
