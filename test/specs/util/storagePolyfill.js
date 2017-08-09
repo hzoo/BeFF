@@ -1,8 +1,6 @@
-define([
-  'util/cookie',
-  'util/storagePolyfill'
-], function(cookie, storagePolyfill) {
-  'use strict';
+import cookie from 'util/cookie';
+import storagePolyfill from 'util/storagePolyfill';
+  
 
   describe('util/storagePolyfill', function() {
     var originalLocalStorage = Object.getOwnPropertyDescriptor(window, 'localStorage');
@@ -385,4 +383,4 @@ define([
       });
     });
   });
-});
+
