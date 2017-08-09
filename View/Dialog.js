@@ -5,9 +5,8 @@ import keyboard from '../ux/keyboard';
 import transitionEnd from '../dom/transitionEnd';
 import dialogTemplate from 'hgn-loader!../template/dialog';
 
-
 var constructor = View.extend({
-  init: function(model) {
+  init(model) {
     this._super(model);
     this
       .on('postrender', this._bindButtons)
@@ -16,12 +15,12 @@ var constructor = View.extend({
       });
   },
 
-  destroy: function() {
+  destroy() {
     this.hide();
     this._super.apply(this, arguments);
   },
 
-  _bindButtons: function($view) {
+  _bindButtons($view) {
     $view
       .on('click', '.js-confirm', this.trigger.bind(this, 'confirm'))
       .on('click', '.js-close', this.hide.bind(this))
@@ -32,24 +31,24 @@ var constructor = View.extend({
       }.bind(this));
   },
 
-  dialogTemplate: dialogTemplate,
+  dialogTemplate,
 
-  template: function(data) {
+  template(data) {
     return this.dialogTemplate(extend({
-      content: this._super(data)
+      content: this._super(data),
     }, this.dialogData, data));
   },
 
-  position: function() {},
+  position() {},
 
-  _transitionEnd: function() {
+  _transitionEnd() {
     return transitionEnd(this.$view);
   },
 
   _shown: false,
   _shownClass: 'shown',
 
-  show: function() {
+  show() {
     if (this._shown) { return this; }
     this._shown = true;
 
@@ -61,12 +60,12 @@ var constructor = View.extend({
     }.bind(this));
 
     keyboard.on({
-      escape: this.hide.bind(this)
+      escape: this.hide.bind(this),
     });
     return this.trigger('show', $view);
   },
 
-  hide: function() {
+  hide() {
     if (!this._shown) { return this; }
     this._shown = false;
 
@@ -83,9 +82,9 @@ var constructor = View.extend({
     return this.trigger('hide', this.$view);
   },
 
-  toggle: function() {
+  toggle() {
     return this[this._shown ? 'hide' : 'show']();
-  }
+  },
 });
 
 export default constructor;

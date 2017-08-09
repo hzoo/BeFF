@@ -2,27 +2,26 @@ import $ from 'jquery';
 import Component from '../Component';
 import loadScriptPromised from 'tiny-script-loader/loadScriptPromised';
 
-
 export default Component.extend({
-  init: function(config) {
+  init(config) {
     this._config = config;
     this._export();
     this._initEmbed();
   },
 
-  bind: function() {
+  bind() {
     $('.js-zendesk').bind('click.be-zendesk', function() {
       this._load()
         .then(function() {
           window.zEmbed.activate({ hideOnClose: true });
         });
 
-        // stop propagation and preventDefault
+      // stop propagation and preventDefault
       return false;
     }.bind(this));
   },
 
-  unbind: function() {
+  unbind() {
     $('.js-zendesk').off('click.be-zendesk');
     window.zEmbed = null;
     window.zE = null;
@@ -30,11 +29,11 @@ export default Component.extend({
     document.zEQueue = null;
   },
 
-  _load: function() {
+  _load() {
     return loadScriptPromised('//assets.zendesk.com/embeddable_framework/main.js');
   },
 
-  _export: function() {
+  _export() {
     var queue = [];
 
     window.zEmbed = function() {
@@ -46,15 +45,15 @@ export default Component.extend({
     document.zEQueue = queue;
   },
 
-  _initEmbed: function() {
+  _initEmbed() {
     window.zEmbed(function() {
       window.zEmbed.identify(this._config.identify);
 
-        // Upon manual testing, it appears that queueing up activate *before*
-        // you actually lazyload the script is the only way to get the zendesk
-        // popup to appear open onload.
+      // Upon manual testing, it appears that queueing up activate *before*
+      // you actually lazyload the script is the only way to get the zendesk
+      // popup to appear open onload.
       window.zEmbed.activate({ hideOnClose: true });
     }.bind(this));
-  }
+  },
 });
 

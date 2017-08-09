@@ -2,7 +2,6 @@ import $ from 'jquery';
 import Promise from 'nbd/Promise';
 import csrfCookie from './csrfCookie';
 
-
 function addCsrfToken(options) {
   var addCsrf = function(req) {
         req.setRequestHeader('X-BCP', csrfCookie.get());
@@ -23,7 +22,7 @@ function addCsrfToken(options) {
   return options;
 }
 
-  /**
+/**
   * Returns a promise wrapping jQuery.ajax()
   * This is so we can get proper error reporting
   */

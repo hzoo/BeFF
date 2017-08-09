@@ -1,7 +1,6 @@
 import $ from 'jquery';
 
-
-  /**
+/**
    * Events for scrolling past points in pages
    * @module  BeFF/scrollpoint
    */
@@ -22,7 +21,7 @@ function normalize(breakpoint) {
 
   var value = percent.exec(breakpoint);
 
-    // Percentage breakpoint
+  // Percentage breakpoint
   if (value) {
     return (value[1] / 100);
   }
@@ -32,17 +31,17 @@ function normalize(breakpoint) {
 
 function elementHeight($context) {
   return $context.is($window) ?
-           ($document.height() - (window.innerHeight || $window.height())) :
-           $context.prop('scrollHeight');
+    ($document.height() - (window.innerHeight || $window.height())) :
+    $context.prop('scrollHeight');
 }
 
 function check(breakpoint, scrolled, $context) {
   return (scrolled >
             (isPercent(breakpoint) ?
-             breakpoint * elementHeight($context) :
-             parseInt(breakpoint, 10)
+              breakpoint * elementHeight($context) :
+              parseInt(breakpoint, 10)
             )
-           );
+  );
 }
 
 function scroll(context) {
@@ -105,7 +104,7 @@ function unregister(breakpoint, callback, context) {
   }
 }
 
-  /**
+/**
    * @param breakpoint {Number|String} Number of pixels scrolled down
    * or percentage of context height e.g. '50%' or 0.5
    * @param callback {Function}

@@ -2,7 +2,6 @@ import $ from 'jquery';
 import Component from '../Component';
 import 'jquery-lazyload';
 
-
 function swapAttr($elem, attr) {
   var property = 'data-' + attr;
 
@@ -14,15 +13,15 @@ function swapAttr($elem, attr) {
 }
 
 export default Component.extend({
-  init: function($elem, options) {
+  init($elem, options) {
     this._$elem = $elem;
     this._options = options;
   },
 
-  bind: function() {
+  bind() {
     var self = this;
 
-      // Appear event is triggered by $.fn.lazyload
+    // Appear event is triggered by $.fn.lazyload
     this._$elem.on('appear', function createPictureElementFromElement() {
       var $elem = $(this);
       var $img = $elem.is('img') ? $elem : $elem.find('img');
@@ -54,8 +53,8 @@ export default Component.extend({
     this._$elem.lazyload(this._options);
   },
 
-  unbind: function() {
+  unbind() {
     this._$elem.off('appear');
-  }
+  },
 });
 

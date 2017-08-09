@@ -2,8 +2,7 @@ import Component from '../Component';
 import Controller from '../Controller';
 import eventMappable from '../trait/eventMappable';
 
-
-  /**
+/**
    * Manages a DOM region that contains a list of Controllers for each item.
    * Forwards all events from inner nodes with an event prefix.
    *
@@ -12,46 +11,46 @@ import eventMappable from '../trait/eventMappable';
    * @module  BeFF/Component/Container
    */
 export default Component.extend({
-    /**
+  /**
      * The controller class constructed for each item in the container
      * Defaults to the base BeFF/Controller unless overridden
      * @type {BeFF/Controller}
      */
-  Controller: Controller,
+  Controller,
 
-    /**
+  /**
      * All events from inner nodes are forwarded with this prefix.
      * @type {String}
      */
   eventPrefix: 'change:',
 
-    /**
+  /**
      * @param {$} $view The "container" element that should be managed
      */
-  init: function($view) {
+  init($view) {
     this.$view = $view;
   },
 
-    /**
+  /**
      * @return {BeFF/Component/Container}
      */
-  bind: function() {
+  bind() {
     this._mapEvents();
     this._nodes = this.$view.children().toArray()
       .map(this.decorate, this);
     return this;
   },
 
-  unbind: function() {
+  unbind() {
     this._undelegateEvents();
     return this;
   },
 
-    /**
+  /**
      * Constructs an instance of the controller with the passed args
      * @return {BeFF/Controller} An instance of the controller
      */
-  decorate: function(dataOrEl) {
+  decorate(dataOrEl) {
     var inst = new this.Controller(dataOrEl);
     if (inst.on) {
       this.listenTo(inst, 'destroy', function() {
@@ -63,26 +62,26 @@ export default Component.extend({
     return inst;
   },
 
-    /**
+  /**
      * Forwards events from inner nodes with a prefix.
      * This allows listeners of this container to distinguish container-level events
      * from a container's node's events.
      */
-  forwardEvents: function() {
+  forwardEvents() {
     var eventName = this.eventPrefix + arguments[0],
         eventData = [].slice.call(arguments, 1);
 
     this.trigger.bind(this, eventName).apply(this, eventData);
   },
 
-    /**
+  /**
      * Constructs a controller for every element of the resultset
      * and renders the controller into the managed $view
      * @param {Array} resultset A list of JSON objects representing new items in the container
      * @fires module:BeFF/Component/Container#update
      * @returns {Array} A list of the newly constructed controllers rendered into $view
      */
-  add: function(resultset) {
+  add(resultset) {
     if (!resultset || !Array.isArray(resultset)) { return; }
     var nodes = resultset.map(this.decorate, this).filter(Boolean);
 
@@ -96,8 +95,8 @@ export default Component.extend({
     return nodes;
   },
 
-    /** @fires module:BeFF/Component/Container#update */
-  remove: function(node) {
+  /** @fires module:BeFF/Component/Container#update */
+  remove(node) {
     var i;
     if ((i = this._nodes.indexOf(node)) !== -1) {
       this._nodes.splice(i, 1);
@@ -106,12 +105,12 @@ export default Component.extend({
     }
   },
 
-    /**
+  /**
      * Destroys all of the managed controllers and empties
      * the managed $view
      * @return {$} The newly emptied $view
      */
-  empty: function() {
+  empty() {
     if (!this._nodes) {
       return this.$view;
     }
@@ -130,25 +129,25 @@ export default Component.extend({
     return this.$view.empty();
   },
 
-    /**
+  /**
      * @return {Boolean} Whether or not there are any managed controllers
      */
-  isEmpty: function() {
+  isEmpty() {
     return !this._nodes || !this._nodes.length;
   },
 
-    /**
+  /**
      * @return {Array} An array of all the nodes
      */
-  getNodes: function() {
+  getNodes() {
     return this._nodes && this._nodes.slice() || [];
-  }
+  },
 }, {
-  init: function($view, Controller) {
+  init($view, Controller) {
     var instance = new this($view);
     instance.Controller = Controller || instance.Controller;
     return instance.bind();
-  }
+  },
 })
   .mixin(eventMappable);
 

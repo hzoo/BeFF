@@ -1,12 +1,11 @@
 import $ from 'jquery';
 
-
 var _attachTextLike = function(selector, key, $field) {
   var model;
 
   $field = $field.is(selector) ?
-      $field :
-      $field.find(selector);
+    $field :
+    $field.find(selector);
 
   model = this.on(key, function(value) {
     this._setElementValue($field, value);
@@ -17,15 +16,15 @@ var _attachTextLike = function(selector, key, $field) {
   });
 };
 
-  // Two-way binding of inputs to a model
+// Two-way binding of inputs to a model
 export default {
-  attach: function($els) {
+  attach($els) {
     var map = {
       'input[type=text]': 'attachText',
       'input[type=radio]': 'attachRadio',
       'input[type=checkbox]': 'attachCheckbox',
       textarea: 'attachTextArea',
-      select: 'attachSelect'
+      select: 'attachSelect',
     };
 
     $els.each(function(i, el) {
@@ -40,7 +39,7 @@ export default {
     }.bind(this));
   },
 
-  attachCheckbox: function(key, $context) {
+  attachCheckbox(key, $context) {
     var $checkboxes = $context.find('input[type=checkbox]'),
         model = this.on(key, function(piped) {
           var values = piped.split('|');
@@ -65,7 +64,7 @@ export default {
     return this;
   },
 
-  attachRadio: function(key, $context) {
+  attachRadio(key, $context) {
     var $radios = $context.find('input[type=radio]'),
         model = this.on(key, function(value) {
           this._setElementChecked($radios.filter('[value="' + value + '"]'), true);
@@ -78,10 +77,10 @@ export default {
     return this;
   },
 
-  attachSelect: function(key, $field) {
+  attachSelect(key, $field) {
     $field = $field.is('select') ?
-        $field :
-        $field.find('select');
+      $field :
+      $field.find('select');
 
     var model = this.on(key, function(value) {
       this._setElementValue($field, value);
@@ -94,47 +93,47 @@ export default {
     return this;
   },
 
-  attachTextArea: function(key, $field) {
+  attachTextArea(key, $field) {
     _attachTextLike.call(this, 'textarea', key, $field);
     return this;
   },
 
-  attachText: function(key, $field) {
+  attachText(key, $field) {
     _attachTextLike.call(this, 'input[type=text]', key, $field);
     return this;
   },
 
-  attachSearch: function(key, $field) {
+  attachSearch(key, $field) {
     _attachTextLike.call(this, 'input[type=search]', key, $field);
     return this;
   },
 
-  attachEmail: function(key, $field) {
+  attachEmail(key, $field) {
     _attachTextLike.call(this, 'input[type=email]', key, $field);
     return this;
   },
 
-  attachUrl: function(key, $field) {
+  attachUrl(key, $field) {
     _attachTextLike.call(this, 'input[type=url]', key, $field);
     return this;
   },
 
-  attachTel: function(key, $field) {
+  attachTel(key, $field) {
     _attachTextLike.call(this, 'input[type=tel]', key, $field);
     return this;
   },
 
-  attachPassword: function(key, $field) {
+  attachPassword(key, $field) {
     _attachTextLike.call(this, 'input[type=password]', key, $field);
     return this;
   },
 
-  _setElementValue: function($el, val) {
+  _setElementValue($el, val) {
     $($el).val(val);
   },
 
-  _setElementChecked: function($el, checked) {
+  _setElementChecked($el, checked) {
     $($el).prop('checked', checked);
-  }
+  },
 };
 

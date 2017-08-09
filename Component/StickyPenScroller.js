@@ -1,9 +1,8 @@
 import $ from 'jquery';
 import Component from '../Component';
 
-
 export default Component.extend({
-  init: function(options) {
+  init(options) {
     options = options || {};
     this.penMargin = options.penMargin || 15;
     this.dropDownMargin = options.dropDownMargin || 10;
@@ -19,7 +18,7 @@ export default Component.extend({
     this._positionPenForShortModules();
   },
 
-  _setupScroller: function() {
+  _setupScroller() {
     this.$pens.each(function(index, pen) {
       var $pen = $(pen);
 
@@ -33,7 +32,7 @@ export default Component.extend({
     this._setWindowScroller();
   },
 
-  _setWindowScroller: function() {
+  _setWindowScroller() {
     var $module = this.$modules.first();
     var scrollTop;
 
@@ -45,7 +44,7 @@ export default Component.extend({
       var $dropdown = $pen.next('.js-dropdown');
       var offsettedScrollTop = scrollTop + this.offset;
 
-        // top and bottom scroll bounds for each module
+      // top and bottom scroll bounds for each module
       if (offsettedScrollTop > moduleOffsetTop && offsettedScrollTop < this._getScrollBottomLimit($module, $pen)) {
         $pen.css('top', offsettedScrollTop - moduleOffsetTop + this.penMargin);
         this._fixDropDownPosition($dropdown, $pen);
@@ -70,7 +69,7 @@ export default Component.extend({
     });
   },
 
-  _getScrollBottomLimit: function($module, $pen) {
+  _getScrollBottomLimit($module, $pen) {
     var $dropdown = $pen.next('.js-dropdown'),
         limit = $module.offset().top + $module.innerHeight() - $pen.outerHeight() - this.penMargin;
 
@@ -81,7 +80,7 @@ export default Component.extend({
     return limit;
   },
 
-  _adjustDropdownFromPen: function($pen) {
+  _adjustDropdownFromPen($pen) {
     var penHeight = $pen.innerHeight(),
         $dropdown = $pen.next('.js-dropdown');
 
@@ -95,13 +94,13 @@ export default Component.extend({
     $dropdown.css('top', $pen.position().top + penHeight + this.dropDownMargin);
   },
 
-  _fixDropDownPosition: function($dropdown, $pen) {
+  _fixDropDownPosition($dropdown, $pen) {
     if ($dropdown.is(':visible')) {
       this._adjustDropdownFromPen($pen);
     }
   },
 
-  _positionPenForShortModules: function() {
+  _positionPenForShortModules() {
     this.$modules.on('mouseenter.stickyPenScroller', function(e) {
       var $module = $(e.currentTarget),
           $pen = $module.find('.js-pen');
@@ -112,10 +111,10 @@ export default Component.extend({
     }.bind(this));
   },
 
-  unbind: function() {
+  unbind() {
     this.$context.off('.stickyPenScroller');
     this.$modules.off('.stickyPenScroller');
     $(window).off('.stickyPenScroller');
-  }
+  },
 });
 

@@ -1,6 +1,5 @@
 import Promise from 'nbd/Promise';
 
-
 var handlers = [],
     error = function errorHandler(value) {
       var promise = new Promise();
@@ -11,7 +10,7 @@ var handlers = [],
     };
 
 Object.defineProperty(error, 'handlers', {
-  value: handlers
+  value: handlers,
 });
 
 export default error;

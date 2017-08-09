@@ -1,13 +1,12 @@
 import Component from '../Component';
 import loadScriptPromised from 'tiny-script-loader/loadScriptPromised';
 
-
 export default Component.extend({
-  init: function(pixelId) {
+  init(pixelId) {
     this._pixelId = pixelId;
   },
 
-  bind: function() {
+  bind() {
     this._createTwitterWrapper();
 
     this._loadingPromise = this._load()
@@ -16,23 +15,23 @@ export default Component.extend({
       }.bind(this));
   },
 
-  trackPageView: function() {
+  trackPageView() {
     return this._loadingPromise.then(function() {
       this._twitter('track', 'PageView');
     }.bind(this));
   },
 
-  _twitter: function() {
+  _twitter() {
     if (window.twq) {
       window.twq.apply(window.twq, arguments);
     }
   },
 
-  _load: function() {
+  _load() {
     return loadScriptPromised('//static.ads-twitter.com/uwt.js');
   },
 
-  _createTwitterWrapper: function() {
+  _createTwitterWrapper() {
     if (window.twq) { return; }
 
     window.twq = function() {
@@ -48,6 +47,6 @@ export default Component.extend({
 
     window.twq.version = '1';
     window.twq.queue = [];
-  }
+  },
 });
 

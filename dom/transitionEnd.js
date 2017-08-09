@@ -1,15 +1,14 @@
 import Promise from 'nbd/Promise';
 import diff from 'nbd/util/diff';
 
-
-  // Thanks modernizr
+// Thanks modernizr
 var eventName = (function transitionEvent() {
       var el = document.createElement('aside'),
           transEndEventNames = {
             WebkitTransition: 'webkitTransitionEnd',
             MozTransition: 'transitionend',
             OTransition: 'oTransitionEnd otransitionend',
-            transition: 'transitionend'
+            transition: 'transitionend',
           },
           name;
 
@@ -18,7 +17,7 @@ var eventName = (function transitionEvent() {
           return transEndEventNames[name];
         }
       }
-    })(),
+    }()),
 
     requestAnimationFrame = window.requestAnimationFrame ||
       window.mozRequestAnimationFrame ||
@@ -35,7 +34,7 @@ var eventName = (function transitionEvent() {
       return p;
     },
 
-      // From https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+    // From https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
     allowedTransitionProps = [
       'transform',
       'transform-origin',
@@ -105,7 +104,7 @@ var eventName = (function transitionEvent() {
       'clip',
       'shape-outside',
       'shape-margin',
-      'shape-image-threshold'
+      'shape-image-threshold',
     ];
 
 function hasTransition($el) {
@@ -121,8 +120,8 @@ function getTransitionProps($el) {
       transitionProperty = $el.css('transition-property');
 
   return (transitionProperty === 'all' ?
-      allowedTransitionProps :
-      transitionProperty.split(','))
+    allowedTransitionProps :
+    transitionProperty.split(','))
     .reduce(function(o, prop) {
       prop = prop.trim();
       o[prop] = computedStyle.getPropertyValue(prop);
@@ -152,13 +151,13 @@ export default function transitionEnd($el, timeout) {
     });
   }
 
-    // Wait for transitionend
+  // Wait for transitionend
   if (eventName && hasTransition($el)) {
     props = getTransitionProps($el);
     checkTransitionProp();
     setTimeout(function() { halt = true; }, timeout);
   }
-    // Immediately return
+  // Immediately return
   else {
     p.resolve(false);
   }

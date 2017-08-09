@@ -5,13 +5,12 @@ import responsive from 'nbd/trait/responsive';
 import Controller from 'nbd/Controller';
 import View from './View';
 
-
 function isData(id, data) {
   return typeof data === 'undefined' || typeof id === 'object';
 }
 
 export default Controller.extend({
-  init: function(id, data) {
+  init(id, data) {
     var el, $view;
 
     if (isData(id, data)) {
@@ -35,7 +34,7 @@ export default Controller.extend({
     }
 
     if ($view) {
-        // We want the HTML5 dataset
+      // We want the HTML5 dataset
       data = extend({}, el.dataset || $view.data());
     }
 
@@ -45,9 +44,9 @@ export default Controller.extend({
     if ($view) {
       this._view.trigger('postrender', $view);
     }
-  }
+  },
 }, {
-  VIEW_CLASS: View
+  VIEW_CLASS: View,
 })
   .mixin(log)
   .mixin(responsive);

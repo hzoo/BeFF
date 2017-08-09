@@ -1,13 +1,12 @@
 import win from './window';
 import xhr from './xhr';
 
-
 var queue = [],
     api = {},
     levels = ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'],
     interval;
 
-  /**
+/**
    * Ensures that no key has a value over a certain length
    *
    * @param {Object} params
@@ -27,7 +26,7 @@ function _truncateObject(params) {
   return params;
 }
 
-  /**
+/**
    * Pushes a log item to queue
    *
    * @param {string} level
@@ -46,15 +45,15 @@ function _push(level, channel, message, context) {
   }
 
   queue.push({
-    level: level,
-    channel: channel,
-      // Weird format for compatability with server
-    messages: [{ message: message }],
-    context: context
+    level,
+    channel,
+    // Weird format for compatability with server
+    messages: [{ message }],
+    context,
   });
 }
 
-  /**
+/**
    * Makes sure queue gets flushed every second
    */
 function _setInterval() {
@@ -65,7 +64,7 @@ function _setInterval() {
   }, 1000);
 }
 
-  /**
+/**
    * Stops automatic queue sending
    */
 function _clearInterval() {
@@ -76,17 +75,17 @@ function _clearInterval() {
 }
 
 api = {
-    /**
+  /**
      * Allows consumer to overload xhr
      */
-  xhr: xhr,
+  xhr,
 
-  log: function(level, channel, message, context) {
+  log(level, channel, message, context) {
     _push(level.toUpperCase(), channel, message, context);
     return this;
   },
 
-    /**
+  /**
      * Pushes a log item to queue
      *
      * @param {string} channel
@@ -95,12 +94,12 @@ api = {
      *
      * @return {be/remoteLogger}
      */
-  info: function(channel, message, context) {
+  info(channel, message, context) {
     _push('INFO', channel, message, context);
     return this;
   },
 
-    /**
+  /**
      * Pushes a log item to queue
      *
      * @param {string} channel
@@ -109,21 +108,21 @@ api = {
      *
      * @return {be/remoteLogger}
      */
-  error: function(channel, message, context) {
+  error(channel, message, context) {
     _push('ERROR', channel, message, context);
     return this;
   },
 
-    /**
+  /**
      * Sends queued logs to server
      *
      * @return {Promise}
      */
-  send: function() {
+  send() {
     var logs = [],
         data, chain;
 
-      // Ensure no sending can conflict with timer
+    // Ensure no sending can conflict with timer
     _clearInterval();
 
     while (queue.length) {
@@ -135,8 +134,8 @@ api = {
       url: '/log',
       type: 'POST',
       data: {
-        logs: logs
-      }
+        logs,
+      },
     });
 
     chain.then(_setInterval, _setInterval);
@@ -144,22 +143,22 @@ api = {
     return chain;
   },
 
-    /**
+  /**
      * Returns currently queued items waiting to be sent
      *
      * @return {Array}
      */
-  getQueue: function() {
+  getQueue() {
     return queue;
   },
 
-    /**
+  /**
      * Gives back query string params without any values that are too long
      * Useful when wanting to log specific query string parameters in the context
      *
      * @return {Object}
      */
-  getSafeSearch: function() {
+  getSafeSearch() {
     var params = win.getSearchObject();
 
     params = _truncateObject(params);
@@ -167,20 +166,20 @@ api = {
     return params;
   },
 
-    /**
+  /**
      * Kicks off automatic log sending
      */
-  init: function() {
+  init() {
     _setInterval();
   },
 
-    /**
+  /**
      * Stops automatic log sending and resets queue
      */
-  destroy: function() {
+  destroy() {
     _clearInterval();
     queue = [];
-  }
+  },
 };
 
 export default api;

@@ -18,7 +18,7 @@ var Storage = (function() {
 
     Object.keys(this._data).forEach(function(key) {
       var value = JSON.stringify({
-        key: key,
+        key,
         value: self._data[key],
       });
 
@@ -117,11 +117,11 @@ var Storage = (function() {
   };
 
   return Storage;
-})();
+}());
 
 export default {
   storage: Storage,
-  run: function() {
+  run() {
     try {
       if (!this._hasStorageAPI()) {
         throw 'exception';
@@ -141,11 +141,11 @@ export default {
     }
   },
 
-  _hasStorageAPI: function() {
+  _hasStorageAPI() {
     return window.localStorage && window.sessionStorage;
   },
 
-  _attemptStoragePatch: function() {
+  _attemptStoragePatch() {
     // In Chrome with "All site data blocked" trying to read from local or session storage
     // will throw an error
     try {

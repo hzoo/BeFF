@@ -5,8 +5,7 @@ import Component from '../Component';
 import xhr from '../util/xhr';
 import error from '../util/error';
 
-
-  /**
+/**
    * Takes a serialized Array (such as from $.serializeArray) and
    * transforms it into a JSON structure apporpriate for sending
    * as data over and ajax request.
@@ -20,9 +19,9 @@ function decompose(inputs) {
     var val = obj[entry.name];
 
     obj[entry.name] = val ?
-        // Format selects into { name: [value1, value2,...] }
-        [].concat(val, entry.value) :
-        entry.value;
+      // Format selects into { name: [value1, value2,...] }
+      [].concat(val, entry.value) :
+      entry.value;
 
     return obj;
   }, {});
@@ -30,7 +29,7 @@ function decompose(inputs) {
 
 function normalizeSubmitter(e) {
   switch (e.which) {
-      // Left mouse
+    // Left mouse
     case 1:
       // Enter
     case 13:
@@ -47,8 +46,8 @@ function innerChain(metadata) {
   var chain = new Promise(),
       then = chain.thenable(),
       retval = typeof this.commit === 'function' ?
-          this.commit.call(then, metadata) :
-          this.commit;
+        this.commit.call(then, metadata) :
+        this.commit;
 
   chain.resolve(retval === then ? this.xhr(metadata) : retval);
   this.trigger('commit');
@@ -57,9 +56,9 @@ function innerChain(metadata) {
 }
 
 var Form = Component.extend({
-  xhr: xhr,
+  xhr,
 
-  init: function($context) {
+  init($context) {
     if (!$context) {
       throw new Error('The context of the form cannot be empty');
     }
@@ -69,16 +68,16 @@ var Form = Component.extend({
       throw new Error('Unable to find form within context');
     }
 
-      // Internal bindings so that we can unbind later
+    // Internal bindings so that we can unbind later
     this._normalizeSubmitter = normalizeSubmitter.bind(this);
     this.submit = this.submit.bind(this);
 
     Object.defineProperty(this, 'handlers', {
-      value: [this._handleFormError.bind(this)]
+      value: [this._handleFormError.bind(this)],
     });
   },
 
-  destroy: function() {
+  destroy() {
     if (!this.$form) {
       throw new Error('Cannot destroy null form');
     }
@@ -86,38 +85,38 @@ var Form = Component.extend({
     this.$form = null;
   },
 
-    /**
+  /**
      * Wrapper for resetting form without needing to know the DOM
      */
-  reset: function() {
+  reset() {
     this.$form[0].reset();
 
     return this;
   },
 
-    /**
+  /**
      * Default validator does nothing
      */
-  validator: function(/* data */) { return true; },
+  validator(/* data */) { return true; },
 
-    /**
+  /**
      * Inner Submission process. Should be limited to the forms specific behaviors that are
      * dependent on pre- and post- submission of the form. For the majority of simple forms,
      * this should be all that needs to be overridden.
      *
      * Default implementation simply submits the form data to the form's defined endpoint.
      */
-  commit: function(/* metadata */) {
+  commit(/* metadata */) {
     return this;
   },
 
-    /**
+  /**
      * Default error catch, which only handles "field" errors. Otherwise, rethrows the error
      *
      * @param  {Object|Form.Error} err the error to handle
      * @throws {Object} if the error is not of type Form.Error
      */
-  _handleFormError: function(err) {
+  _handleFormError(err) {
     if (!(err instanceof Form.Error)) {
       throw err;
     }
@@ -127,10 +126,10 @@ var Form = Component.extend({
           self = this;
 
       if ($element.length) {
-          // binding error:hide must come first in case error:show synchronously
-          // triggers 'input' on the element, hiding must take place.
+        // binding error:hide must come first in case error:show synchronously
+        // triggers 'input' on the element, hiding must take place.
         $element.one('input change', function onChange() {
-            // one() binds the events separately, so avoid double firing
+          // one() binds the events separately, so avoid double firing
           $element.off('input change', onChange);
           self.trigger('error:hide', $element);
         });
@@ -140,14 +139,14 @@ var Form = Component.extend({
     }, this);
   },
 
-    /**
+  /**
      * Attempts to handle errors by first running through all supplied handlers
      * and then delegating to the global error handler
      *
      * @param  {Object} err either a validation error or a server error
      * @return {Promise}
      */
-  _handleError: function(err) {
+  _handleError(err) {
     this.trigger('error', err);
 
     return error.call(this.handlers, err)
@@ -157,7 +156,7 @@ var Form = Component.extend({
       }.bind(this));
   },
 
-    /**
+  /**
      * inspects an error object to see if it contains "field" errors
      * which Form can automatically handle. If so, it throws a Form.Error
      * containing the errors, otherwise, rethrows the original error
@@ -166,7 +165,7 @@ var Form = Component.extend({
      * @throws {Form.Error} if a "field" error is detected
      * @throws {Object} if no "field" error is detected
      */
-  _findFormError: function(err) {
+  _findFormError(err) {
     if (!(err instanceof Object)) { throw err; }
 
     var meta = this._cacheMeta || this.toJSON(),
@@ -185,7 +184,7 @@ var Form = Component.extend({
     throw err;
   },
 
-  submit: function(e) {
+  submit(e) {
     if (!this.$form) {
       throw new Error('The form cannot be null');
     }
@@ -199,12 +198,12 @@ var Form = Component.extend({
     return chain;
   },
 
-  _submit: function(e) {
+  _submit(e) {
     var validator = Array.isArray(this.validator) ?
-            pipe.apply(null, this.validator.map(function(validator) {
-              return validator.bind(this);
-            }, this)) :
-            this.validator.bind(this),
+          pipe.apply(null, this.validator.map(function(validator) {
+            return validator.bind(this);
+          }, this)) :
+          this.validator.bind(this),
         resolver = new Promise(),
         meta, valid, error;
 
@@ -212,10 +211,10 @@ var Form = Component.extend({
     try {
       valid = validator(meta.data);
     }
-      catch (validationError) {
-        valid = false;
-        error = validationError;
-      }
+    catch (validationError) {
+      valid = false;
+      error = validationError;
+    }
     valid = valid !== false;
 
     if (e && (!valid || typeof this.commit === 'function')) {
@@ -231,35 +230,35 @@ var Form = Component.extend({
     return resolver.then(innerChain.bind(this));
   },
 
-  toJSON: function() {
+  toJSON() {
     return {
       url: this.$form.attr('action'),
       type: this.$form.attr('method') || 'POST',
-      data: this.constructor.decompose(this.$form.serializeArray())
+      data: this.constructor.decompose(this.$form.serializeArray()),
     };
   },
 
   _submitSelector: '.js-submit:not([type=submit])',
 
-  bind: function() {
+  bind() {
     this.$form
       .on('click keydown', this._submitSelector, this._normalizeSubmitter)
       .on('submit', this.submit);
     return this;
   },
 
-  unbind: function() {
+  unbind() {
     this.$form
       .off('click keydown', this._submitSelector, this._normalizeSubmitter)
       .off('submit', this.submit);
     return this;
-  }
+  },
 }, {
-  decompose: decompose,
+  decompose,
 
   Error: function FormError(messages) {
     extend(this, messages);
-  }
+  },
 });
 
 export default Form;

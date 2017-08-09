@@ -14,13 +14,13 @@ module.exports = {
     rules: [{
       enforce: 'pre',
       test: /(fine-uploader).*\.js$/,
-      loader: 'imports-loader?jQuery=jquery'
-    }]
+      loader: 'imports-loader?jQuery=jquery',
+    }],
   },
   resolve: {
     modules: [
       __dirname,
-      'node_modules'
+      'node_modules',
     ],
     alias: {
       // local paths
@@ -32,17 +32,17 @@ module.exports = {
       ractive$: 'ractive',
 
       fixtures: 'test/fixtures',
-      mocks: 'test/mocks'
+      mocks: 'test/mocks',
     },
-    extensions: ['.js', '.mustache']
+    extensions: ['.js', '.mustache'],
   },
   resolveLoader: {
     alias: {
       text$: 'raw-loader',
-      hgn$: 'hgn-loader'
-    }
+      hgn$: 'hgn-loader',
+    },
   },
   plugins: [
-    new Notifier({ title: pkg.name })
-  ]
+    new Notifier({ title: pkg.name }),
+  ],
 };

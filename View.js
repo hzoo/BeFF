@@ -3,23 +3,22 @@ import View from 'nbd/View';
 import log from 'nbd/trait/log';
 import eventMappable from './trait/eventMappable';
 
-
 export default View.extend({
-  init: function() {
+  init() {
     this._super.apply(this, arguments);
     this.on('postrender', this._mapEvents);
   },
 
-  template: function(templateData) {
+  template(templateData) {
     return this.mustache && this.mustache(templateData, this.partials);
   },
 
-  destroy: function() {
+  destroy() {
     this._undelegateEvents();
     this._super();
-  }
+  },
 }, {
-  domify: $
+  domify: $,
 })
   .mixin(log)
   .mixin(eventMappable);

@@ -1,9 +1,8 @@
 import $ from 'jquery';
 import Component from '../Component';
 
-
 var CountableElement = Component.extend({
-  init: function(options) {
+  init(options) {
     this._$context = options.$context;
     this._label = options.label;
 
@@ -19,32 +18,32 @@ var CountableElement = Component.extend({
       this._$context.removeAttr('maxlength');
     }
 
-      // Run in case field already has value
+    // Run in case field already has value
     this._checkLimit();
   },
 
-  bind: function() {
+  bind() {
     this._$context.on('input.beff-char-counter', this._checkLimit.bind(this));
   },
 
-  unbind: function() {
+  unbind() {
     this._$context.off('input.beff-char-counter');
   },
 
-  _setCountRemainingText: function(remainingCount) {
+  _setCountRemainingText(remainingCount) {
     this._$charLengthResultsText.html('<span class="letters-remaining">' + this._label + '</span> ' + remainingCount);
   },
 
-    /**
+  /**
      * Lengths are of the form length[0]
      * @param  {String} validation
      * @return {Object}
      */
-  _extractLengths: function(validation) {
+  _extractLengths(validation) {
     var matches = validation.match(/length\[(\d+)(,(\d+))?\]/),
         lengths = {
           min: 0,
-          max: 0
+          max: 0,
         };
 
     if (matches && matches.length) {
@@ -60,7 +59,7 @@ var CountableElement = Component.extend({
     return lengths;
   },
 
-  _checkLimit: function() {
+  _checkLimit() {
     var charRemaining = this._lengths.max - this._$context.val().length,
         charLeftMin = this._lengths.min,
         charWarning = 0.1 * (this._lengths.max + this._lengths.min);
@@ -78,39 +77,39 @@ var CountableElement = Component.extend({
       this._$charLengthResultsText.removeClass('counter-max');
     }
 
-    if (charRemaining < charWarning && charRemaining > charLeftMin)  {
+    if (charRemaining < charWarning && charRemaining > charLeftMin) {
       this._$charLengthResultsText.addClass('counter-warn').removeClass('counter-normal');
     }
     else {
       this._$charLengthResultsText.removeClass('counter-warn');
     }
-  }
+  },
 });
 
 export default Component.extend({
-    /**
+  /**
      * @param {Object} options
      * @param {$} options.$context
      * @param {Boolean} options.canBeNegative
      * @param {String} options.label
      */
-  init: function(options) {
+  init(options) {
     var $elements = options.$context.find('.js-characters-limited'),
         label = typeof options.label === 'undefined' ? 'Characters left:' : options.label;
 
     this._countableElements = $elements.toArray().map(function(el) {
       return CountableElement.init({
         $context: $(el),
-        label: label,
-        canBeNegative: options.canBeNegative
+        label,
+        canBeNegative: options.canBeNegative,
       });
     });
   },
 
-  unbind: function() {
+  unbind() {
     this._countableElements.forEach(function(elem) {
       elem.destroy();
     });
-  }
+  },
 });
 

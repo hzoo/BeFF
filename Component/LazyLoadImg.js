@@ -2,17 +2,16 @@ import $ from 'jquery';
 import Component from '../Component';
 import 'intersection-observer-polyfill';
 
-
 export default Component.extend({
-  init: function($elem) {
+  init($elem) {
     this._$elem = $elem;
   },
 
-  bind: function() {
+  bind() {
     this.createObserver();
   },
 
-  createObserver: function() {
+  createObserver() {
     this._observer = new window.IntersectionObserver(this.changeHandler.bind(this));
     var self = this;
 
@@ -21,7 +20,7 @@ export default Component.extend({
     });
   },
 
-  changeHandler: function(changes) {
+  changeHandler(changes) {
     var self = this;
 
     changes.forEach(function(change) {
@@ -36,15 +35,15 @@ export default Component.extend({
     });
   },
 
-  _replaceAttr: function($img, attrToReplace) {
+  _replaceAttr($img, attrToReplace) {
     if ($img.attr('data-' + attrToReplace)) {
       $img.attr(attrToReplace, $img.data(attrToReplace))
         .removeAttr('data-' + attrToReplace);
     }
   },
 
-  unbind: function() {
+  unbind() {
     this._observer.disconnect();
-  }
+  },
 });
 

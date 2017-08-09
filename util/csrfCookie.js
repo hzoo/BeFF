@@ -4,8 +4,7 @@
 import cookie from './cookie';
 import uuidV4 from 'uuid/v4';
 
-
-  /**
+/**
    * Sets the CSRF cookie to a random value. Calling multiple times will
    * set the cookie to a new value
    */
@@ -14,7 +13,7 @@ function genCookie() {
   return cookie.get('bcp');
 }
 
-  /**
+/**
    * Expire the CSRF cookie to remove it from the browser's cookie store
    *
    * NOTE: Added for completeness, as there is currently nowhere that
@@ -24,7 +23,7 @@ function expireCookie() {
   cookie.set('bcp', null);
 }
 
-  /**
+/**
    * Returns the current value of the CSRF token stored in the browser's cookie
    * store.
    *
@@ -36,6 +35,6 @@ function getCookie() {
 
 export default {
   get: getCookie,
-  expire: expireCookie
+  expire: expireCookie,
 };
 

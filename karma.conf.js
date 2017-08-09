@@ -10,7 +10,7 @@ if (process.env.COVERAGE === 'true') {
     exclude: /(test|node_modules)\//,
     loader: 'istanbul-instrumenter-loader',
     enforce: 'post',
-    options: { esModules: true }
+    options: { esModules: true },
   });
   reporters.push('coverage');
 }
@@ -29,27 +29,27 @@ module.exports = function(config) {
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'test/index.js',
       { pattern: 'test/fixtures/**/*', included: false },
-      { pattern: '**/*.js', included: false }
+      { pattern: '**/*.js', included: false },
     ],
 
     webpack: webpackConfig,
 
     webpackMiddleware: {
-      noInfo: true
+      noInfo: true,
     },
 
     preprocessors: {
-      'test/index.js': ['webpack']
+      'test/index.js': ['webpack'],
     },
 
-    reporters: reporters,
+    reporters,
 
     coverageReporter: {
       type: 'text',
-      dir: 'test/coverage/'
+      dir: 'test/coverage/',
     },
     mochaReporter: {
-      ignoreSkipped: true
+      ignoreSkipped: true,
     },
     port: 9876,
     runnerPort: 9100,
@@ -58,6 +58,6 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: ['PhantomJS'],
     captureTimeout: 60000,
-    singleRun: false
+    singleRun: false,
   });
 };

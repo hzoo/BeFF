@@ -5,8 +5,7 @@ import promiseFacade from './CloudUploader/facades/promise';
 import promisesFacade from './CloudUploader/facades/promises';
 import fineUploader from 'fineuploader/all.fine-uploader';
 
-
-  /**
+/**
    * Wrapper around FineUploader that provides sane defaults,
    * filereader support, and pubsub events for upload lifecycle.
    *
@@ -26,7 +25,7 @@ import fineUploader from 'fineuploader/all.fine-uploader';
    * @fires module:Component/CloudUploader#progress
    */
 export default Component.extend({
-    /**
+  /**
      * Uploader configuration defaults
      * @type {Object}
      */
@@ -46,14 +45,14 @@ export default Component.extend({
       minWidthImageError: 'Please choose an image that is at least {minWidth} pixels wide.',
       uploadError: '{file} failed to upload. Please try again.',
       retryFailTooManyItems: 'You have reached your upload limit. Please check back later to upload more images.',
-      onLeave: 'The files are being uploaded, if you leave now the upload will be canceled.'
+      onLeave: 'The files are being uploaded, if you leave now the upload will be canceled.',
     },
     text: {
-      defaultResponseError: ''
-    }
+      defaultResponseError: '',
+    },
   },
 
-    /**
+  /**
      * Intiliazes the uploader with the provided options.
      *
      * @example
@@ -72,12 +71,12 @@ export default Component.extend({
      * @param  {Object} options.request
      * @param  {Object} options.signature
      */
-  init: function(options) {
+  init(options) {
     var config = {};
 
     this._verifyOptions(options);
 
-      // using $.extend for ability to do deep recursive extension
+    // using $.extend for ability to do deep recursive extension
     $.extend(true, config, this._defaultOptions, options, {
       callbacks: {
         onSubmit: this._onSubmit.bind(this),
@@ -86,15 +85,15 @@ export default Component.extend({
         onCancel: this._onCancel.bind(this),
         onError: this._onError.bind(this),
         onAllComplete: this._onAllComplete.bind(this),
-        onValidateBatch: this._onValidateBatch.bind(this)
+        onValidateBatch: this._onValidateBatch.bind(this),
       },
       chunking: {
         enabled: true,
-        mandatory: true
-      }
+        mandatory: true,
+      },
     });
 
-      // move the drift option to a location that a hacked version of fineuploader can find it
+    // move the drift option to a location that a hacked version of fineuploader can find it
     config.signature.params = config.signature.params || {};
     config.signature.params.drift = options.drift;
 
@@ -102,7 +101,7 @@ export default Component.extend({
       config.button = $('<div>').css({
         position: 'absolute',
         left: -999999,
-        top: -999999
+        top: -999999,
       }).appendTo(document.body)[0];
       this._buttonCreated = true;
     }
@@ -111,7 +110,7 @@ export default Component.extend({
     this._config = config;
   },
 
-  bind: function() {
+  bind() {
     $(this._config.button).on('click.cloud-uploader', 'input', function() {
       if (this._isDisabled()) {
         return false;
@@ -124,71 +123,71 @@ export default Component.extend({
     }.bind(this));
   },
 
-  unbind: function() {
+  unbind() {
     $(this._config.button).off('.cloud-uploader');
     if (this._buttonCreated) {
       $(this._config.button).remove();
     }
   },
 
-  addFiles: function(files) {
+  addFiles(files) {
     this._uploader.addFiles(files);
   },
 
-  reset: function() {
+  reset() {
     this._uploader.reset();
   },
 
-    /**
+  /**
      * Specifies an element as a drop target for drag and drop files
      *
      * @param  {DOMNode} element
      * @return {Component/CloudUploader}
      */
-  setDropElement: function(element) {
+  setDropElement(element) {
     var uploader = this._uploader;
 
     this._dropZone = new fineUploader.DragAndDrop({
       dropZoneElements: [element],
       callbacks: {
-        processingDroppedFiles: function() {
-            // TODO: fire an event on the uploader so that, e.g., a spinner can be shown
+        processingDroppedFiles() {
+          // TODO: fire an event on the uploader so that, e.g., a spinner can be shown
         },
-        processingDroppedFilesComplete: function(files) {
-            // TODO: fire an event on the uploader so that, e.g., a spinner can be hidden
+        processingDroppedFilesComplete(files) {
+          // TODO: fire an event on the uploader so that, e.g., a spinner can be hidden
           uploader.addFiles(files);
-        }
-      }
+        },
+      },
     });
 
     return this;
   },
 
-    /**
+  /**
      * Returns the AWS bucket url that files are being uploaded to.
      *
      * @return {String}
      */
-  getUploadEndpoint: function() {
+  getUploadEndpoint() {
     return this._config.request.endpoint;
   },
 
-    /**
+  /**
      * Returns the AWS key of the uploaded file.
      *
      * @param  {Number} id
      * @return {String}
      */
-  getUploadPath: function(id) {
+  getUploadPath(id) {
     return this._uploader.getKey(id);
   },
 
-    /**
+  /**
      * Opens the file chooser
      *
      * @param  {Number} [idx=0] - The index of the input field to get (if there are multiple)
      */
-  choose: function(idx) {
+  choose(idx) {
     $(this._getInput(idx))
       .one('click.cloud-uploader', function(e) {
         // fine uploader requires the configured button be clicked to trigger the "choose" OS
@@ -201,42 +200,42 @@ export default Component.extend({
       .trigger('click.cloud-uploader');
   },
 
-    /**
+  /**
      * Cancels all in progress uploads.
      */
-  cancelAll: function() {
+  cancelAll() {
     this._uploader.cancelAll();
   },
 
-    /**
+  /**
      * Returns a human readable size given bytes
      *
      * @param  {Number} sizeInBytes
      * @return {String}
      */
-  formatSize: function(sizeInBytes) {
+  formatSize(sizeInBytes) {
     return this._uploader._formatSize(sizeInBytes);
   },
 
-    /**
+  /**
      * Sets whether to accept multiple or individual files
      *
      * @param {Boolean} multiple
      * @param  {Number} [idx=0] - The index of the input field to get (if there are multiple)
      * @return {Component/CloudUploader} for chaining
      */
-  setMultiple: function(multiple, idx) {
+  setMultiple(multiple, idx) {
     this._getButton(idx).setMultiple(multiple);
 
     return this;
   },
 
-    /**
+  /**
      * Verifies that the passed in options contain the minimum required config
      *
      * @throws {Error} If configuration is invalid
      */
-  _verifyOptions: function(options) {
+  _verifyOptions(options) {
     if (!options.request || !options.request.endpoint || !options.request.accessKey) {
       throw new Error('Please provide a proper `request` configuration property');
     }
@@ -250,25 +249,25 @@ export default Component.extend({
     }
   },
 
-    /**
+  /**
      * Returns whether or not uploads are currently disabled. Serves as an extension point for implementation-specific override.
      *
      * @return {Boolean}
      */
-  _isDisabled: function() {
+  _isDisabled() {
     return this._config.disabled;
   },
 
-    /**
+  /**
      * Executes the provided validator, or returns true if no validator was provided
      *
      * @param {File} file [description]
      * @return {Promise|Boolean}
      */
-  _validator: function(file) {
+  _validator(file) {
     var result = this._config.validator ? this._config.validator(file) : true;
 
-      // convert false into a rejected Promise to stop submission when the validator returns false
+    // convert false into a rejected Promise to stop submission when the validator returns false
     if (result === false) {
       return Promise.reject();
     }
@@ -276,45 +275,45 @@ export default Component.extend({
     return result;
   },
 
-    /**
+  /**
      * Whether or not the current browser has client-side rendering support
      *
      * @return {Boolean}
      */
-  _isBrowserSupported: function() {
+  _isBrowserSupported() {
     return !!window.FileReader;
   },
 
-    /**
+  /**
      * Wrapper around a fineUploader hack to get access to the generated input field
      *
      * @param  {Number} [idx=0] - The index of the input field to get (if there are multiple)
      * @return {DOMNode}
      */
-  _getInput: function(idx) {
+  _getInput(idx) {
     return this._getButton(idx).getInput();
   },
 
-    /**
+  /**
      * Gets the button associated with this uploader
      *
      * @param  {Number} [idx=0] - The index of the input field to get (if there are multiple)
      * @return {Button}
      */
-  _getButton: function(idx) {
+  _getButton(idx) {
     return this._uploader._buttons[idx || 0];
   },
 
-    /**
+  /**
      * Returns the uploader's file with the given id
      * @param  {Number} id
      * @return {FineUploader#File}
      */
-  _getFile: function(id) {
+  _getFile(id) {
     return this._uploader.getFile(id);
   },
 
-  _onSubmit: function(id, name) {
+  _onSubmit(id, name) {
     var file = this._getFile(id);
 
     file.id = file.id || id;
@@ -324,9 +323,9 @@ export default Component.extend({
     }.bind(this))
       .then(function() {
         this.trigger('submit', {
-          file: file,
-          id: id,
-          name: name
+          file,
+          id,
+          name,
         });
       }.bind(this), function(reason) {
         // ensures any rejections from _validator are propagated as errors
@@ -336,72 +335,72 @@ export default Component.extend({
       }.bind(this));
   },
 
-  _onValidateBatch: function(files) {
+  _onValidateBatch(files) {
     this.trigger('validateBatch', {
-      files: files
+      files,
     });
   },
 
-  _onProgress: function(id, name, loaded, total) {
+  _onProgress(id, name, loaded, total) {
     this.trigger('progress', {
-      id: id,
+      id,
       file: this._getFile(id),
-      name: name,
-      loaded: loaded,
-      total: total
+      name,
+      loaded,
+      total,
     });
   },
 
-  _onComplete: function(id, name, response) {
+  _onComplete(id, name, response) {
     this.trigger('complete', {
-      response: response,
-      id: id,
-      name: name,
+      response,
+      id,
+      name,
       file: this._getFile(id),
       uploadEndpoint: this.getUploadEndpoint(),
-      uploadPath: this.getUploadPath(id)
+      uploadPath: this.getUploadPath(id),
     });
   },
 
-  _onCancel: function(id, name) {
+  _onCancel(id, name) {
     this.trigger('cancel', {
-      id: id,
-      name: name
+      id,
+      name,
     });
   },
 
-  _onAllComplete: function() {
+  _onAllComplete() {
     this.trigger('allComplete');
   },
 
-  _onError: function(id, name, message, xhr) {
+  _onError(id, name, message, xhr) {
     if (xhr) {
       message = this._config.messages.uploadError.replace('{file}', name);
     }
 
     this.trigger('error', {
-      id: id,
-      name: name,
-      message: message,
-      xhr: xhr
+      id,
+      name,
+      message,
+      xhr,
     });
-  }
+  },
 }, {
-  promises: function(options, files) {
+  promises(options, files) {
     return promisesFacade(this, options, files);
   },
 
-  promise: function(options, files) {
+  promise(options, files) {
     return promiseFacade(this, options, files);
   },
 
-  setDropElement: function(element, cb) {
+  setDropElement(element, cb) {
     return new fineUploader.DragAndDrop({
       dropZoneElements: [element],
       callbacks: {
-        processingDroppedFilesComplete: cb
-      }
+        processingDroppedFilesComplete: cb,
+      },
     });
-  }
+  },
 });
 

@@ -1,7 +1,6 @@
 // Events for scrolling past floating regions
 import $ from 'jquery';
 
-
 var $window = $(window),
     $document = $(document),
     scrollCache = {},
@@ -69,7 +68,7 @@ function onScroll(context, contentContext) {
   };
 }
 
-  /**
+/**
    * @param breakpoint {Number} Percentage of viewport height from bottom of context as a decimal. e.g. 0.5 is 50%
    * @param callback {Function} Potential promise generator
    * @param context {DOM|jQuery}
@@ -100,7 +99,7 @@ function scrollfloat(breakpoint, callback, context, contentContext) {
   if (!cb) {
     cb = registry[contextId][breakpoint] = {
       wrapped: [],
-      original: []
+      original: [],
     };
   }
 
@@ -121,11 +120,11 @@ function scrollfloat(breakpoint, callback, context, contentContext) {
     }
   }
 
-    // store both the original and wrapped so it can be removed
+  // store both the original and wrapped so it can be removed
   cb.original.push(callback);
   cb.wrapped.push(onHit);
 
-    // First check
+  // First check
   scrollCache[contextId]();
 }
 
@@ -145,7 +144,7 @@ scrollfloat.off = function(fn, context, contentContext) {
 
   for (breakpoint in registry[contextId]) {
     cb = registry[contextId][breakpoint];
-      // search for the original function
+    // search for the original function
     i = cb.original.indexOf(fn);
     if (~i) {
       cb.original.splice(i, 1);

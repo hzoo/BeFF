@@ -1,10 +1,9 @@
 import $ from 'jquery';
 import Class from 'nbd/Class';
 
-
 function checkMeta(metas, fn) {
   return function(e) {
-      // Passes if all the metakeys pass
+    // Passes if all the metakeys pass
     var pass = metas.map(function(m) {
       return m ? m.toLowerCase() + 'Key' : null;
     }).reduce(function(p, n) {
@@ -23,10 +22,10 @@ var keyhandler = new (Class.extend({
 
   ignoredElements: {
     INPUT: true,
-    TEXTAREA: true
+    TEXTAREA: true,
   },
 
-  init: function(options) {
+  init(options) {
     options = options || {};
     this.globals = options.global || {};
     this.listeners = [];
@@ -41,44 +40,44 @@ var keyhandler = new (Class.extend({
     $(document.body).on('keydown', this.keydownHandler);
   },
 
-  destroy: function() {
+  destroy() {
     $(document.body).off('keydown', this.keydownHandler);
   },
 
-  translate: function(keymap, map) {
+  translate(keymap, map) {
     var metaRE = /^((?:(?:meta|shift|ctrl|alt)-)*)(.+)$/i;
     map = map || {};
 
     Object.keys(keymap).forEach(function(key) {
       var result = metaRE.exec(key);
       if (!result) { return; }
-        // result[2] is the actual key
+      // result[2] is the actual key
       var keyCode = this.constructor.keyCodes[result[2].toLowerCase()];
       if (!keyCode) { return; }
       map[keyCode] = map[keyCode] || $.Callbacks('unique stopOnFalse');
-        // result[1] is the meta modifiers
+      // result[1] is the meta modifiers
       map[keyCode].add(result[1] ? checkMeta(result[1].split('-'), keymap[key]) : keymap[key]);
     }, this);
 
     return map;
   },
 
-  addListener: function(map) {
+  addListener(map) {
     this.listeners.push(this.translate(map));
   },
 
-  appendListener: function(map) {
+  appendListener(map) {
     if (!this.listeners.length) {
       this.listeners.push({});
     }
     this.translate(map, this.listeners[this.listeners.length - 1]);
   },
 
-  removeListener: function() {
+  removeListener() {
     this.listeners.pop();
   },
 
-  addGlobal: function(map) {
+  addGlobal(map) {
     this.translate(map, this.globals);
   },
 
@@ -89,18 +88,18 @@ var keyhandler = new (Class.extend({
       return;
     }
 
-      // execute the top handler, if any
+    // execute the top handler, if any
     if (topMap[e.which] && (this.constructor.bypassCodes[e.which] || !this.ignoredElements[e.target.tagName])) {
       topMap[e.which].fire(e);
     }
 
-      // execute global handler
+    // execute global handler
     if (this.globals[e.which]) {
       this.globals[e.which].fire(e);
     }
   },
 
-  keyupHandler: function keyup() {}
+  keyupHandler: function keyup() {},
 }, {
   keyCodes: {
     backspace: 8,
@@ -180,7 +179,7 @@ var keyhandler = new (Class.extend({
     '[': 219,
     '\\': 220,
     ']': 221,
-    '\'': 222
+    '\'': 222,
   },
 
   bypassCodes: {
@@ -202,14 +201,14 @@ var keyhandler = new (Class.extend({
     120: true,
     121: true,
     122: true,
-    123: true
-  }
+    123: true,
+  },
 }))();
 
 export default {
   on: keyhandler.addListener,
   off: keyhandler.removeListener,
   add: keyhandler.appendListener,
-  global: keyhandler.addGlobal
+  global: keyhandler.addGlobal,
 };
 

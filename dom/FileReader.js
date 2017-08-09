@@ -1,34 +1,33 @@
 import Component from '../Component';
 
-
-  /**
+/**
    * A wrapper around HTML5 FileReader that provides additional information about the read image.
    *
    * @module  dom/FileReader
    * @constructor
    */
 export default Component.extend({
-  init: function() {
+  init() {
     this.reader = new FileReader();
   },
 
-    /**
+  /**
      * Reads the given file, encapsulated for mocking in tests
      *
      * @param  {File|Blob} file
      */
-  _read: function(file) {
+  _read(file) {
     this.reader.readAsDataURL(file);
   },
 
-    /**
+  /**
      * Reads the file and generates an image for getting additional information
      *
      * @param {File|Blob} file - the file from an input[type=file] to be read.
      * @returns {Promise} - Resolves with an object containing the loaded
      *                      blob's attributes and computed properties
      */
-  load: function(file) {
+  load(file) {
     return new Promise(function(resolve, reject) {
       this.reader.onload = function(e) {
         var result = {
@@ -37,9 +36,9 @@ export default Component.extend({
           mode: 'data',
           mime: e.target.type || file.type,
           result: e.target.result,
-            // data without 'data:' and 'base64' prefixes
-            // Necessary when feeding potential image data to a cropper
-          source: e.target.result.split(',')[1]
+          // data without 'data:' and 'base64' prefixes
+          // Necessary when feeding potential image data to a cropper
+          source: e.target.result.split(',')[1],
         };
 
         result.isImage = !!result.mime.match('image');
@@ -53,18 +52,18 @@ export default Component.extend({
 
       this._read(file);
     }.bind(this));
-  }
+  },
 }, {
-    /**
+  /**
      * Reads the file and generates an image for getting additional information
      *
      * @param {File|Blob} file - the file from an input[type=file] to be read.
      * @returns {Promise} - Resolves with an object containing the loaded
      *                      blob's attributes and computed properties
      */
-  promise: function(file) {
+  promise(file) {
     var self = new this();
     return self.load(file);
-  }
+  },
 });
 

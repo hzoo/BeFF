@@ -3,20 +3,19 @@ import extend from 'nbd/util/extend';
 import InfiniteLoader from './InfiniteLoader';
 import Container from './Container';
 
-
 export default InfiniteLoader.extend({
   dataKey: 'data',
   offsetKey: 'offset',
 
-  Container: Container,
+  Container,
 
-  init: function(loaderOptions) {
+  init(loaderOptions) {
     this._super();
     extend(this, loaderOptions);
     this._Container = this.Container.extend();
   },
 
-  hasMoreResults: function(response) {
+  hasMoreResults(response) {
     var more = !!(response && response[this.offsetKey]);
     if (!more) {
       this.unbind();
@@ -28,16 +27,16 @@ export default InfiniteLoader.extend({
     return more;
   },
 
-  getNextOffset: function(response) {
+  getNextOffset(response) {
     return response[this.offsetKey];
   },
 
-  loaded: function(response) {
+  loaded(response) {
     var data = response[this.dataKey];
     this._container.add(data);
   },
 
-  at: function($context) {
+  at($context) {
     if (!$context) {
       throw new Error('Context must be defined');
     }
@@ -48,25 +47,25 @@ export default InfiniteLoader.extend({
 
     if ($context.css('overflowX') !== 'visible') {
       this.context = $context[0].id ?
-          '#' + $context[0].id :
-          this.context;
+        '#' + $context[0].id :
+        this.context;
     }
     return this;
   },
 
-  of: function(Klass) {
+  of(Klass) {
     if (this._container) {
       this._container.Controller = Klass;
       return this;
     }
 
     this._Container.mixin({
-      Controller: Klass
+      Controller: Klass,
     });
     return this;
   },
 
-  _xhrOptions: function() {
+  _xhrOptions() {
     var options = this._super();
     if (this._model) {
       extend(options.data, this._model.data());
@@ -74,7 +73,7 @@ export default InfiniteLoader.extend({
     return options;
   },
 
-  bind: function(model, firstLoad) {
+  bind(model, firstLoad) {
     if (model && model.data) {
       if (this._model) {
         this.stopListening(this._model);
@@ -105,7 +104,7 @@ export default InfiniteLoader.extend({
     }
   },
 
-  destroy: function() {
+  destroy() {
     if (this._model) {
       this.stopListening(this._model);
       this._model = null;
@@ -117,9 +116,9 @@ export default InfiniteLoader.extend({
     this._super();
   },
 
-    /** @return {Boolean} */
-  isEmpty: function() {
+  /** @return {Boolean} */
+  isEmpty() {
     return this._container && this._container.isEmpty();
-  }
+  },
 });
 

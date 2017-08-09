@@ -2,8 +2,7 @@ import Promise from 'nbd/Promise';
 import Component from '../Component';
 import imageUtil from '../util/image';
 
-
-  /**
+/**
    * Represents a wrapper of window.Image
    * Mainly used for mocking purposes
    *
@@ -19,15 +18,15 @@ import imageUtil from '../util/image';
    *   .src(Blob|File);
    */
 export default Component.extend({
-    /**
+  /**
      * @type {HTMLImageElement}
      */
   image: null,
 
-    /**
+  /**
      * @param  {?HTMLImageElement} imageElement
      */
-  init: function(imageElement) {
+  init(imageElement) {
     var self = this;
 
     this.image = imageElement || new window.Image();
@@ -41,87 +40,87 @@ export default Component.extend({
     };
   },
 
-    /**
+  /**
      * Returns true when an image has already loaded or error and has a sane src attribute.
      * This works around the fact that the dom will list an image with an empty src as "complete".
      *
      * @return {Boolean}
      */
-  isComplete: function() {
+  isComplete() {
     return this.image.complete && this.image.src;
   },
 
-    /**
+  /**
      * Returns the display width of the image, constrained by page layout
      *
      * @return {Number}
      */
-  displayWidth: function() {
+  displayWidth() {
     return this.image.width;
   },
 
-    /**
+  /**
      * Returns the display height of the image, constrained by page layout
      *
      * @return {Number}
      */
-  displayHeight: function() {
+  displayHeight() {
     return this.image.height;
   },
 
-    /**
+  /**
      * Returns the natural width of the image, not constrained by page layout
      *
      * @return {Number}
      */
-  width: function() {
+  width() {
     return this.image.naturalWidth;
   },
 
-    /**
+  /**
      * Returns the natural height of the image, not constrained by page layout
      *
      * @return {Number}
      */
-  height: function() {
+  height() {
     return this.image.naturalHeight;
   },
 
-    /**
+  /**
      * Set the image src
      * @param {String} imageData
      */
-  src: function(imageData) {
+  src(imageData) {
     this.image.src = imageData;
   },
 
-    /**
+  /**
      * Returns whether the src property is a data-uri of an animated gif.
      *
      * @throws {Error} If the src attribute is not a data-uri.
      * @return {Boolean}
      */
-  isAnimatedGif: function() {
+  isAnimatedGif() {
     return imageUtil.isAnimatedGif(this._getBinaryData());
   },
 
-    /**
+  /**
      * Returns whether the src property is a data-uri of a CMYK jpeg.
      *
      * @throws {Error} If the src attribute is not a data-uri.
      * @return {Boolean}
      */
-  isCMYK: function() {
+  isCMYK() {
     return imageUtil.isCMYK(this._getBinaryData());
   },
 
-    /**
+  /**
      * Returns a binary string representation of the image
      *
      * @throws {Error} If the src attribute is not a data-uri.
      * @return {String}
      */
-  _getBinaryData: function() {
+  _getBinaryData() {
     if (this.image.src.indexOf('data:') !== 0) {
       throw new Error('src attribute is not a data-uri');
     }
@@ -129,15 +128,15 @@ export default Component.extend({
     var base64 = this.image.src.split(',')[1];
 
     return window.atob(base64);
-  }
+  },
 }, {
-    /**
+  /**
      * Returns a promise resolved with dimensions of the image representing the url
      *
      * @param  {String} url
      * @return {Promise}
      */
-  getDimensions: function(url) {
+  getDimensions(url) {
     var Image = this;
 
     return new Promise(function(resolve, reject) {
@@ -148,7 +147,7 @@ export default Component.extend({
           displayWidth: img.displayWidth(),
           displayHeight: img.displayHeight(),
           width: img.width(),
-          height: img.height()
+          height: img.height(),
         });
       })
         .on('error', function() {
@@ -158,13 +157,13 @@ export default Component.extend({
     });
   },
 
-    /**
+  /**
      * Returns a promise that is resolved when the image tag is complete (i.e. loaded or error and has valid src attribute).
      *
      * @param  {HTMLImageElement} imageElement
      * @return {Promise}
      */
-  whenComplete: function(imgElement) {
+  whenComplete(imgElement) {
     var Image = this;
 
     return new Promise(function(resolve) {
@@ -179,13 +178,13 @@ export default Component.extend({
     });
   },
 
-    /**
+  /**
      * Returns a promise that resolves with the image of a given url
      *
      * @param  {string} source url
      * @return {Promise}
      */
-  load: function(src) {
+  load(src) {
     var Image = this;
 
     return new Promise(function(resolve, reject) {
@@ -196,6 +195,6 @@ export default Component.extend({
         .on('error', reject)
         .src(src);
     });
-  }
+  },
 });
 

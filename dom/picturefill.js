@@ -1,6 +1,5 @@
 import $ from 'jquery';
 
-
 var mm = window.matchMedia || window.msMatchMedia,
     mkimg = function() {
       var $this = $(this), $source = $this.find('div[data-src]');
@@ -17,8 +16,8 @@ var mm = window.matchMedia || window.msMatchMedia,
         })).last();
       }
 
-        // using attr here because .data() doesn't add the attribute
-        // and we want to select based on a Selectors API compliant selector
+      // using attr here because .data() doesn't add the attribute
+      // and we want to select based on a Selectors API compliant selector
       $this.attr('data-rendered', 'rendered');
 
       $('<img>', {
@@ -26,7 +25,7 @@ var mm = window.matchMedia || window.msMatchMedia,
         src: $source.data('src'),
         class: $source.data('class'),
         title: $source.data('title'),
-        'data-pin-nopin': 'pin'
+        'data-pin-nopin': 'pin',
       }).appendTo($this);
     };
 
