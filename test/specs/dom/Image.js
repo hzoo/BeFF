@@ -1,10 +1,8 @@
-define([
-  'jquery',
-  'nbd/Promise',
-  'dom/Image',
-  'fixtures/dom/Image/fileReaderData'
-], function($, Promise, Image, Images) {
-  'use strict';
+import $ from 'jquery';
+import Promise from 'nbd/Promise';
+import Image from 'dom/Image';
+import Images from 'fixtures/dom/Image/fileReaderData';
+  
 
   describe('dom/Image', function() {
     var imgUrl = '/base/test/fixtures/dom/Image/grant.jpeg';
@@ -162,4 +160,4 @@ define([
       });
     });
   });
-});
+

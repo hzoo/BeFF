@@ -1,8 +1,6 @@
-define([
-  'fixtures/dom/FileReader',
-  'dom/FileReader'
-], function(image, FileReader) {
-  'use strict';
+import image from 'fixtures/dom/FileReader';
+import FileReader from 'dom/FileReader';
+  
 
   describe('dom/FileReader', function() {
     // FileReader.readAsDataURL generates broken image data when testing.
@@ -51,4 +49,4 @@ define([
       });
     });
   });
-});
+

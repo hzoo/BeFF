@@ -1,5 +1,5 @@
-define(['util/validate'], function(validate) {
-  'use strict';
+import validate from 'util/validate';
+  
 
   describe('lib/validate', function() {
     var tests = {
@@ -185,4 +185,4 @@ define(['util/validate'], function(validate) {
       tests.good.forEach(function(testCase) { good('optional', testCase); });
     });
   });
-});
+

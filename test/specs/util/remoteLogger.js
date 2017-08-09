@@ -1,9 +1,7 @@
-define([
-  'nbd/util/deparam',
-  'util/window',
-  'util/remoteLogger'
-], function(deparam, win, logger) {
-  'use strict';
+import deparam from 'nbd/util/deparam';
+import win from 'util/window';
+import logger from 'util/remoteLogger';
+  
 
   describe('util/remoteLogger', function() {
     var message = 'My message',
@@ -145,4 +143,4 @@ define([
       });
     });
   });
-});
+

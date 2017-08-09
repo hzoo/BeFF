@@ -1,10 +1,8 @@
-define([
-  'jquery',
-  '../../util/validate'
-], function($, validate) {
-  'use strict';
+import $ from 'jquery';
+import validate from '../../util/validate';
+  
 
-  return {
+  export default {
     trimIfEmpty: function(data) {
       Object.keys(data).forEach(function(key) {
         var trimmedValue,
@@ -41,4 +39,4 @@ define([
       return data;
     }
   };
-});
+

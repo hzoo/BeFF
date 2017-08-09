@@ -1,5 +1,9 @@
-define(['Component/InfiniteContainer', 'util/xhr', 'nbd/Model', 'nbd/util/deparam'], function(InfiniteContainer, xhr, Model, deparam) {
-  'use strict';
+import InfiniteContainer from 'Component/InfiniteContainer';
+import xhr from 'util/xhr';
+import Model from 'nbd/Model';
+import deparam from 'nbd/util/deparam';
+import $__Component_Container from 'Component/Container';
+  
 
   describe('Component/InfiniteContainer', function() {
     var Controller, param, $content, model;
@@ -38,7 +42,7 @@ define(['Component/InfiniteContainer', 'util/xhr', 'nbd/Model', 'nbd/util/depara
     });
 
     it('defaults its container to BeFF/Component/Container if not overriden by subclasses', function() {
-      var Container = require('Component/Container'),
+      var Container = $__Component_Container,
           Foo = InfiniteContainer.extend(),
           foo = new Foo(),
           $bar = affix('div');
@@ -49,7 +53,7 @@ define(['Component/InfiniteContainer', 'util/xhr', 'nbd/Model', 'nbd/util/depara
     });
 
     it('allows the Container constructor to be configurable within subclasses', function() {
-      var Container = require('Component/Container'),
+      var Container = $__Component_Container,
           TestContainer = Container.extend(),
           Foo = InfiniteContainer.extend({
             Container: TestContainer
@@ -234,4 +238,4 @@ define(['Component/InfiniteContainer', 'util/xhr', 'nbd/Model', 'nbd/util/depara
       });
     });
   });
-});
+

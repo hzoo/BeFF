@@ -1,9 +1,7 @@
-define([
-  'jquery',
-  'Component/LazyLoadPicture',
-  'text!fixtures/Component/LazyLoadPicture.html'
-], function($, LazyLoadPicture, fixture) {
-  'use strict';
+import $ from 'jquery';
+import LazyLoadPicture from 'Component/LazyLoadPicture';
+import fixture from 'text!fixtures/Component/LazyLoadPicture.html';
+  
 
   describe('be/LazyLoadPicture', function() {
     beforeEach(function() {
@@ -115,4 +113,4 @@ define([
       $(window).trigger('resize');
     });
   });
-});
+

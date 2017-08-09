@@ -1,4 +1,4 @@
-define([], function() {
+
   function int16BE(bits, pos) {
     return (bits.charCodeAt(pos) << 8) + bits.charCodeAt(pos + 1);
   }
@@ -7,7 +7,7 @@ define([], function() {
     return (bits.charCodeAt(pos + 1) << 8) + bits.charCodeAt(pos);
   }
 
-  return {
+  export default {
     /**
      * Returns whether the src property is a data-uri of an animated gif.
      *
@@ -161,4 +161,4 @@ define([], function() {
       }
     }
   };
-});
+

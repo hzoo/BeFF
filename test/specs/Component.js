@@ -1,5 +1,6 @@
-define(['Component', 'nbd/trait/pubsub'], function(Component, pubsub) {
-  'use strict';
+import Component from 'Component';
+import pubsub from 'nbd/trait/pubsub';
+  
 
   describe('Component', function() {
     it('is a constructor', function() {
@@ -65,4 +66,4 @@ define(['Component', 'nbd/trait/pubsub'], function(Component, pubsub) {
       });
     });
   });
-});
+

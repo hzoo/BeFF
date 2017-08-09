@@ -1,7 +1,5 @@
-define([
-  'dom/truncate'
-], function(truncate) {
-  'use strict';
+import truncate from 'dom/truncate';
+  
 
   describe('dom/truncate', function() {
     beforeEach(function() {
@@ -24,4 +22,4 @@ define([
       }
     });
   });
-});
+

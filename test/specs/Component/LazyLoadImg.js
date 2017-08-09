@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  'Component/LazyLoadImg'
-], function($, LazyLoadImg) {
-  'use strict';
+import $ from 'jquery';
+import LazyLoadImg from 'Component/LazyLoadImg';
+  
 
   describe('Component/LazyLoadImg', function() {
     beforeEach(function() {
@@ -59,4 +57,4 @@ define([
       expect(disconnect).toHaveBeenCalled();
     });
   });
-});
+

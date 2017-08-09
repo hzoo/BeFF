@@ -1,8 +1,6 @@
-define([
-  'jquery',
-  '../Dialog'
-], function($, View) {
-  'use strict';
+import $ from 'jquery';
+import View from '../Dialog';
+  
 
   var constructor = View.extend({
     dialogData: {
@@ -26,5 +24,5 @@ define([
     }
   });
 
-  return constructor;
-});
+  export default constructor;
+

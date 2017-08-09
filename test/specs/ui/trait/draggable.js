@@ -1,8 +1,6 @@
-define([
-  'nbd/util/extend',
-  'ui/trait/draggable'
-], function(extend, draggable) {
-  'use strict';
+import extend from 'nbd/util/extend';
+import draggable from 'ui/trait/draggable';
+  
 
   describe('ui/trait/draggable', function() {
     beforeEach(function() {
@@ -37,4 +35,4 @@ define([
       expect(this.view.$view.draggable('option', 'handle')).toEqual('');
     });
   });
-});
+

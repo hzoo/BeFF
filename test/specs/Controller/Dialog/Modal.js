@@ -1,5 +1,6 @@
-define(['Controller/Dialog/Modal', 'nbd/Promise'], function(Modal, Promise) {
-  'use strict';
+import Modal from 'Controller/Dialog/Modal';
+import Promise from 'nbd/Promise';
+  
 
   describe('Controller/Dialog/Modal', function() {
     describe('Modal.init', function() {
@@ -82,4 +83,4 @@ define(['Controller/Dialog/Modal', 'nbd/Promise'], function(Modal, Promise) {
       });
     });
   });
-});
+

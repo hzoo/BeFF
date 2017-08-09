@@ -1,7 +1,5 @@
-define([
-  'util/cookie'
-], function(cookie) {
-  'use strict';
+import cookie from 'util/cookie';
+  
 
   /**
    * Ensures there are no cookies to interfere with tests
@@ -58,4 +56,4 @@ define([
       });
     });
   });
-});
+

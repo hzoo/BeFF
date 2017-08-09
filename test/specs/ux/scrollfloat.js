@@ -1,9 +1,7 @@
-define([
-  'jquery',
-  'ux/scrollfloat',
-  'text!fixtures/ux/scrollfloat.html'
-], function($, scrollfloat, fixture) {
-  'use strict';
+import $ from 'jquery';
+import scrollfloat from 'ux/scrollfloat';
+import fixture from 'text!fixtures/ux/scrollfloat.html';
+  
 
   describe('ux/scrollfloat', function() {
     beforeEach(function() {
@@ -80,5 +78,5 @@ define([
       });
     });
   });
-});
+
 

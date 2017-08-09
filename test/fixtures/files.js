@@ -1,7 +1,7 @@
-define([], function() {
-  'use strict';
 
-  return {
+  
+
+  export default {
     cmykKoala: {
       isImage: true,
       name: 'koala.jpeg',
@@ -39,4 +39,4 @@ define([], function() {
       result: 'data:text/html;base64,beep'
     }
   };
-});
+

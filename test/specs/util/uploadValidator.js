@@ -1,8 +1,6 @@
-define([
-  'util/uploadValidator',
-  '../../fixtures/files'
-], function(uploadValidator, fixtureData) {
-  'use strict';
+import uploadValidator from 'util/uploadValidator';
+import fixtureData from '../../fixtures/files';
+  
 
   describe('lib/uploadValidator', function() {
     describe('.CMYK', function() {
@@ -43,4 +41,4 @@ define([
       });
     });
   });
-});
+

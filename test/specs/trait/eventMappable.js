@@ -1,5 +1,6 @@
-define(['trait/eventMappable', 'nbd/util/extend'], function(eventMappable, extend) {
-  'use strict';
+import eventMappable from 'trait/eventMappable';
+import extend from 'nbd/util/extend';
+  
 
   describe('trait/eventMappable', function() {
     var test;
@@ -154,4 +155,4 @@ define(['trait/eventMappable', 'nbd/util/extend'], function(eventMappable, exten
       });
     });
   });
-});
+

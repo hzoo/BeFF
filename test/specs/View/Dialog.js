@@ -1,9 +1,7 @@
-define([
-  'View/Dialog',
-  'nbd/Promise',
-  'nbd/util/async'
-], function(View, Promise, async) {
-  'use strict';
+import View from 'View/Dialog';
+import Promise from 'nbd/Promise';
+import async from 'nbd/util/async';
+  
 
   describe('View/Dialog', function() {
     it('does not throw when destroyed before a transition completes', function(done) {
@@ -54,4 +52,4 @@ define([
       view.hide();
     });
   });
-});
+

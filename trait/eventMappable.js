@@ -1,5 +1,5 @@
-define(function() {
-  'use strict';
+
+
 
   var isEvent = /^:(.+)/,
 
@@ -40,7 +40,7 @@ define(function() {
         return Array.prototype.concat.apply([], method.map(parse, this));
       };
 
-  return {
+  export default {
     _mapEvents: function() {
       if (this.events == null || !this.$view) { return; }
 
@@ -66,4 +66,4 @@ define(function() {
       this.$view.off('.delegated');
     }
   };
-});
+

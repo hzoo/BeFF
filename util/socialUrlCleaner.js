@@ -1,7 +1,7 @@
-define(function() {
-  'use strict';
 
-  return function(services, url, service) {
+
+
+  export default function(services, url, service) {
     url = url.trim();
     url = url.replace(/https?:\/\//, '');
     url = url.replace('www.', '');
@@ -18,4 +18,4 @@ define(function() {
 
     return url;
   };
-});
+

@@ -1,5 +1,8 @@
-define(['jquery', 'Component/Form', 'nbd/Promise', 'util/xhr'], function($, Form, Promise, xhr) {
-  'use strict';
+import $ from 'jquery';
+import Form from 'Component/Form';
+import Promise from 'nbd/Promise';
+import xhr from 'util/xhr';
+  
 
   describe('Component/Form', function() {
     var foo, $content;
@@ -408,4 +411,4 @@ define(['jquery', 'Component/Form', 'nbd/Promise', 'util/xhr'], function($, Form
       });
     });
   });
-});
+

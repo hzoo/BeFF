@@ -1,5 +1,5 @@
-define(['util/socialUrlValidator'], function(socialUrlValidator) {
-  'use strict';
+import socialUrlValidator from 'util/socialUrlValidator';
+  
 
   describe('util/socialUrlValidator', function() {
     beforeEach(function() {
@@ -31,4 +31,4 @@ define(['util/socialUrlValidator'], function(socialUrlValidator) {
       expect(socialUrlValidator.isValid(this._twitter, socialUrlValidator.normalize('http://twitter.com/foo'))).toBe(true);
     });
   });
-});
+

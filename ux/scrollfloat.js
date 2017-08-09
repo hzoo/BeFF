@@ -1,75 +1,73 @@
 // Events for scrolling past floating regions
-define([
-  'jquery'
-], function($) {
-  'use strict';
+import $ from 'jquery';
 
-  var $window = $(window),
-      $document = $(document),
-      scrollCache = {},
-      registry = {};
 
-  function getContext(context) {
-    return context === 'window' ? $window : $(context);
+var $window = $(window),
+    $document = $(document),
+    scrollCache = {},
+    registry = {};
+
+function getContext(context) {
+  return context === 'window' ? $window : $(context);
+}
+
+function getContextId(context, contentContext) {
+  if (!contentContext) {
+    return context;
   }
 
-  function getContextId(context, contentContext) {
-    if (!contentContext) {
-      return context;
-    }
-
-    if (typeof contentContext !== 'string' || typeof context !== 'string') {
-      throw new Error('context and contentContext must both be strings if contentContext is provided.');
-    }
-
-    return context + '|' + contentContext;
+  if (typeof contentContext !== 'string' || typeof context !== 'string') {
+    throw new Error('context and contentContext must both be strings if contentContext is provided.');
   }
 
-  function getScrollHeight($context, $contentContext) {
-    var contextOffsetTop;
+  return context + '|' + contentContext;
+}
 
-    if ($contentContext.is($window)) {
-      return $document.height();
-    }
+function getScrollHeight($context, $contentContext) {
+  var contextOffsetTop;
 
-    if ($contentContext !== $context) {
-      contextOffsetTop = $context.is($window) ? 0 : $context.offset().top;
-      return $contentContext.height() + $contentContext.offset().top - contextOffsetTop;
-    }
-
-    return $context.prop('scrollHeight');
+  if ($contentContext.is($window)) {
+    return $document.height();
   }
 
-  function getScrollDistance($context, $contentContext) {
-    var elementHeight = $context.is($window) ? window.innerHeight : $context.prop('clientHeight');
-    var scrollHeight = getScrollHeight($context, $contentContext);
-    var scrollBottom = scrollHeight - elementHeight - $context.scrollTop();
-
-    return (scrollBottom / elementHeight);
+  if ($contentContext !== $context) {
+    contextOffsetTop = $context.is($window) ? 0 : $context.offset().top;
+    return $contentContext.height() + $contentContext.offset().top - contextOffsetTop;
   }
 
-  function onScroll(context, contentContext) {
-    var $context = getContext(context);
-    var $contentContext = contentContext ? $(contentContext) : $context;
-    var contextId = getContextId(context, contentContext);
-    var scrollEls = 'window' === context ? $('html,body') : $context;
+  return $context.prop('scrollHeight');
+}
 
-    return function() {
-      var canScroll = scrollEls.toArray().every(function(el) {
-        return $(el).css('overflowY') !== 'hidden';
-      });
+function getScrollDistance($context, $contentContext) {
+  var elementHeight = $context.is($window) ? window.innerHeight : $context.prop('clientHeight');
+  var scrollHeight = getScrollHeight($context, $contentContext);
+  var scrollBottom = scrollHeight - elementHeight - $context.scrollTop();
 
-      var scrollDistance = getScrollDistance($context, $contentContext);
+  return (scrollBottom / elementHeight);
+}
 
-      for (var breakpoint in registry[contextId]) {
-        if (scrollDistance <= Number(breakpoint) && canScroll) {
-          registry[contextId][breakpoint].wrapped.forEach(function(fn) {
-            fn();
-          });
-        }
+function onScroll(context, contentContext) {
+  var $context = getContext(context);
+  var $contentContext = contentContext ? $(contentContext) : $context;
+  var contextId = getContextId(context, contentContext);
+  var scrollEls = 'window' === context ? $('html,body') : $context;
+
+  return function() {
+    var canScroll = scrollEls.toArray().every(function(el) {
+      return $(el).css('overflowY') !== 'hidden';
+    });
+
+    var scrollDistance = getScrollDistance($context, $contentContext);
+
+    for (var breakpoint in registry[contextId]) {
+      if (scrollDistance <= Number(breakpoint) && canScroll) {
+        registry[contextId][breakpoint].wrapped.forEach(function(fn) {
+          fn();
+        });
       }
-    };
-  }
+    }
+  };
+}
 
   /**
    * @param breakpoint {Number} Percentage of viewport height from bottom of context as a decimal. e.g. 0.5 is 50%
@@ -77,98 +75,98 @@ define([
    * @param context {DOM|jQuery}
    * @param contentContext {?DOM|?jQuery}
    */
-  function scrollfloat(breakpoint, callback, context, contentContext) {
-    if (typeof breakpoint === 'function') {
-      contentContext = context;
-      context = callback;
-      callback = breakpoint;
-      breakpoint = 1;
-    }
-    context = context || 'window';
-    breakpoint = Number(breakpoint).toString();
+function scrollfloat(breakpoint, callback, context, contentContext) {
+  if (typeof breakpoint === 'function') {
+    contentContext = context;
+    context = callback;
+    callback = breakpoint;
+    breakpoint = 1;
+  }
+  context = context || 'window';
+  breakpoint = Number(breakpoint).toString();
 
-    var $context = getContext(context);
-    var contextId = getContextId(context, contentContext);
+  var $context = getContext(context);
+  var contextId = getContextId(context, contentContext);
 
-    if (!registry[contextId]) {
-      registry[contextId] = {};
-      scrollCache[contextId] = onScroll(context, contentContext);
+  if (!registry[contextId]) {
+    registry[contextId] = {};
+    scrollCache[contextId] = onScroll(context, contentContext);
 
-      $context.on('scroll', scrollCache[contextId]);
-    }
-
-    var cb = registry[contextId][breakpoint];
-
-    if (!cb) {
-      cb = registry[contextId][breakpoint] = {
-        wrapped: [],
-        original: []
-      };
-    }
-
-    function onHit() {
-      if (onHit.blocking) { return; }
-      onHit.blocking = true;
-
-      var retval = callback.apply(null, arguments);
-
-      if (retval && typeof retval.then === 'function') {
-        retval.then(function() {
-          onHit.blocking = false;
-          scrollCache[contextId]();
-        });
-      }
-      else {
-        onHit.blocking = false;
-      }
-    }
-
-    // store both the original and wrapped so it can be removed
-    cb.original.push(callback);
-    cb.wrapped.push(onHit);
-
-    // First check
-    scrollCache[contextId]();
+    $context.on('scroll', scrollCache[contextId]);
   }
 
-  scrollfloat.on = scrollfloat;
-  scrollfloat.off = function(fn, context, contentContext) {
-    context = context || 'window';
+  var cb = registry[contextId][breakpoint];
 
-    var breakpoint;
-    var cb;
-    var i;
-    var $context = getContext(context);
-    var contextId = getContextId(context, contentContext);
+  if (!cb) {
+    cb = registry[contextId][breakpoint] = {
+      wrapped: [],
+      original: []
+    };
+  }
 
-    if (!registry[contextId]) {
-      return;
+  function onHit() {
+    if (onHit.blocking) { return; }
+    onHit.blocking = true;
+
+    var retval = callback.apply(null, arguments);
+
+    if (retval && typeof retval.then === 'function') {
+      retval.then(function() {
+        onHit.blocking = false;
+        scrollCache[contextId]();
+      });
     }
+    else {
+      onHit.blocking = false;
+    }
+  }
 
-    for (breakpoint in registry[contextId]) {
-      cb = registry[contextId][breakpoint];
+    // store both the original and wrapped so it can be removed
+  cb.original.push(callback);
+  cb.wrapped.push(onHit);
+
+    // First check
+  scrollCache[contextId]();
+}
+
+scrollfloat.on = scrollfloat;
+scrollfloat.off = function(fn, context, contentContext) {
+  context = context || 'window';
+
+  var breakpoint;
+  var cb;
+  var i;
+  var $context = getContext(context);
+  var contextId = getContextId(context, contentContext);
+
+  if (!registry[contextId]) {
+    return;
+  }
+
+  for (breakpoint in registry[contextId]) {
+    cb = registry[contextId][breakpoint];
       // search for the original function
-      i = cb.original.indexOf(fn);
-      if (~i) {
-        cb.original.splice(i, 1);
-        cb.wrapped.splice(i, 1);
-        if (!cb.original.length) {
-          delete registry[contextId][breakpoint];
-        }
+    i = cb.original.indexOf(fn);
+    if (~i) {
+      cb.original.splice(i, 1);
+      cb.wrapped.splice(i, 1);
+      if (!cb.original.length) {
+        delete registry[contextId][breakpoint];
       }
     }
+  }
 
-    if (!Object.keys(registry[contextId]).length) {
-      $context.off('scroll', scrollCache[contextId]);
-      delete registry[contextId];
-    }
-  };
+  if (!Object.keys(registry[contextId]).length) {
+    $context.off('scroll', scrollCache[contextId]);
+    delete registry[contextId];
+  }
+};
 
-  scrollfloat.check = function(context, contentContext) {
-    var contextId = getContextId(context || 'window', contentContext);
+scrollfloat.check = function(context, contentContext) {
+  var contextId = getContextId(context || 'window', contentContext);
 
-    scrollCache[contextId]();
-  };
+  scrollCache[contextId]();
+};
 
-  return scrollfloat;
-});
+export default scrollfloat;
+

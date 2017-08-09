@@ -1,9 +1,7 @@
-define([
-  'jquery',
-  'ux/CharCounter',
-  'text!fixtures/ux/CharCounter.html'
-], function($, CharCounter, fixture) {
-  'use strict';
+import $ from 'jquery';
+import CharCounter from 'ux/CharCounter';
+import fixture from 'text!fixtures/ux/CharCounter.html';
+  
 
   describe('ux/CharCounter', function() {
     beforeEach(function() {
@@ -107,4 +105,4 @@ define([
       });
     });
   });
-});
+

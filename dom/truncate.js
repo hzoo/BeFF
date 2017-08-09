@@ -1,5 +1,5 @@
-define(function() {
-  'use strict';
+
+
 
   /**
    * Returns a new Range object if the environment supports
@@ -51,7 +51,7 @@ define(function() {
    * @param textNode {TextNode} The DOM TextNode
    * @param limit {number} Number of lines at which to truncate
    */
-  return function truncate(textNode, limit) {
+  export default function truncate(textNode, limit) {
     var sel = createSelection(textNode);
 
     if (!sel) { return; }
@@ -89,4 +89,4 @@ define(function() {
 
     sel.detach();
   };
-});
+

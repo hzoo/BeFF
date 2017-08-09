@@ -1,5 +1,8 @@
-define(['Component/Container', 'Controller', 'jquery', 'trait/eventMappable'], function(Container, Controller, $, eventMappable) {
-  'use strict';
+import Container from 'Component/Container';
+import Controller from 'Controller';
+import $ from 'jquery';
+import eventMappable from 'trait/eventMappable';
+  
 
   describe('Container', function() {
     var spy, render, destroy;
@@ -203,4 +206,4 @@ define(['Component/Container', 'Controller', 'jquery', 'trait/eventMappable'], f
       });
     });
   });
-});
+

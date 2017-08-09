@@ -1,8 +1,6 @@
-define([
-  'nbd/Promise',
-  'nbd/trait/pubsub',
-  'nbd/util/extend'
-], function(Promise, pubsub, extend) {
+import Promise from 'nbd/Promise';
+import pubsub from 'nbd/trait/pubsub';
+import extend from 'nbd/util/extend';
   function promisesFacade(Uploader, options, files, resolve) {
     var uploader = Uploader.init(options);
     var submitted = {};
@@ -73,9 +71,9 @@ define([
     }
   }
 
-  return function(Uploader, options, files) {
+  export default function(Uploader, options, files) {
     return new Promise(function(resolve) {
       promisesFacade(Uploader, options, files, resolve);
     });
   };
-});
+
